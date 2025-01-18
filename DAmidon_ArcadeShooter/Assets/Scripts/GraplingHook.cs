@@ -11,7 +11,7 @@ public class GraplingHook : MonoBehaviour
 
     public bool isGrappling;
     LineRenderer lineRenderer;
-    DistanceJoint2D distanceJoint;
+    SpringJoint2D springJoint;
 
     public LayerMask points;
     GameManager manager;
@@ -20,10 +20,10 @@ public class GraplingHook : MonoBehaviour
     {
         manager = FindFirstObjectByType<GameManager>();
 
-        distanceJoint = GetComponent<DistanceJoint2D>();
+        springJoint = GetComponent<SpringJoint2D>();
         lineRenderer = GetComponent<LineRenderer>();
 
-        distanceJoint.enabled = false;
+        springJoint.enabled = false;
         lineRenderer.enabled = false;
 
         closestPoint = null;
@@ -34,7 +34,7 @@ public class GraplingHook : MonoBehaviour
     {
         if(manager.dead)
         {
-            distanceJoint.enabled = false;
+            springJoint.enabled = false;
             lineRenderer.enabled = false;
 
             closestPoint = null;
@@ -55,18 +55,19 @@ public class GraplingHook : MonoBehaviour
 
         if (Input.GetMouseButton(1) && closestPoint)
         {
-            distanceJoint.enabled = true;
+            springJoint.enabled = true;
             lineRenderer.enabled = true;
             isGrappling = true;
 
-            distanceJoint.connectedAnchor = closestPoint.position;
+            springJoint.connectedAnchor = closestPoint.position;
+            springJoint.distance = Vector2.Distance(transform.position, closestPoint.position) * .6f;
 
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, closestPoint.position);
         }
         else
         {
-            distanceJoint.enabled = false;
+            springJoint.enabled = false;
             lineRenderer.enabled = false;
             isGrappling = false;
         }
@@ -103,6 +104,7 @@ public class GraplingHook : MonoBehaviour
             }
         }
 
-        point.position = closestPoint.position;
+        if(closestPoint)
+            point.position = closestPoint.position;
     }
 }

@@ -9,12 +9,24 @@ public class Spawner : MonoBehaviour
     public Transform playerCam;
 
     public int spawnedEnemies;
+    public int spawned;
 
     public float waveTimer;
     float lastSpawned;
 
+    GameManager manager;
+
+    private void Start()
+    {
+        manager = FindFirstObjectByType<GameManager>();
+    }
+
     private void Update()
     {
+        if(!manager.gameStarted) { return; }
+
+        spawned = FindObjectsOfType<EnemyScript>().Length;
+
         lastSpawned += Time.deltaTime;
         if(lastSpawned >= waveTimer)
         {
@@ -27,6 +39,7 @@ public class Spawner : MonoBehaviour
     {
         for(int i = 0; i < spawnedEnemies; i++)
         {
+            if (spawned > 7) return;
             Vector2 spawnPos = GetSpawnPos();
 
             Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360)));

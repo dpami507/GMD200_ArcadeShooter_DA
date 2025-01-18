@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [Header("Movement")]
     public float speed;
@@ -66,11 +66,6 @@ public class PlayerMovement : MonoBehaviour
             if(IsGrounded())
             {
                 Vector2 currentVel = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(-currentVel);
-            }
-            else if(!GetComponent<GraplingHook>().isGrappling)
-            {
-                Vector2 currentVel = new Vector2(rb.velocity.x / 8, 0);
                 rb.AddForce(-currentVel);
             }
         }

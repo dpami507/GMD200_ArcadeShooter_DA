@@ -16,6 +16,8 @@ public class BulletScript : MonoBehaviour
         if (collision.GetComponent<Health>())
             collision.GetComponent<Health>().TakeDamage(damage);
 
+        Debug.Log($"Collision with {collision.gameObject.name}");
+
         Destroy(this.gameObject);
     }
 }

@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SoundManager : MonoBehaviour
+{
+    public Sound[] sounds;
+    public GameObject source;
+
+    public void PlaySound(string soundName)
+    {
+        foreach (var sound in sounds)
+        {
+            if(sound.name == soundName)
+            {
+                GameObject source_ = Instantiate(source, transform.position, Quaternion.identity);
+                source_.name = "Sound: " + sound.name;
+                AudioSource audioSource = source_.GetComponent<AudioSource>();
+
+                audioSource.clip = sound.clip;
+                audioSource.volume = sound.volume;
+
+                float pitch = Random.Range(sound.pitch.x, sound.pitch.y);
+                audioSource.pitch = pitch; 
+
+                audioSource.Play();
+
+                Destroy(source_, sound.length);
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public class Sound
+{
+    public string name;
+    public AudioClip clip;
+    public float volume;
+    public float length;
+    public Vector2 pitch;
+}

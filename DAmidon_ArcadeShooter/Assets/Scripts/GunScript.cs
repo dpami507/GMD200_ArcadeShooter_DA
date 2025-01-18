@@ -7,6 +7,7 @@ public class GunScript : MonoBehaviour
     public Transform muzzle;
     public GameObject bullet;
     public float bulletSpeed;
+    public float bulletSize;
 
     public float shotsPerSecond;
     float lastShot;
@@ -23,7 +24,9 @@ public class GunScript : MonoBehaviour
 
     void Fire()
     {
+        FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
         GameObject bullet_ = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        bullet_.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
         bullet_.GetComponent<Rigidbody2D>().velocity = bullet_.transform.up * bulletSpeed;
     }
 }

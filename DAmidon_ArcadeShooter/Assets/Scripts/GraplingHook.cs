@@ -1,0 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class GraplingHook : MonoBehaviour
+{
+    public Transform point;
+    [SerializeField] Transform closestPoint;
+    public float searchDist;
+
+    public bool isGrappling;
+    LineRenderer lineRenderer;
+    DistanceJoint2D distanceJoint;
+
+    public LayerMask points;
+    GameManager manager;
+
+    private void Start()
+    {
+        manager = FindFirstObjectByType<GameManager>();
+
+        distanceJoint = GetComponent<DistanceJoint2D>();
+        lineRenderer = GetComponent<LineRenderer>();
+
+        distanceJoint.enabled = false;
+        lineRenderer.enabled = false;
+
+        closestPoint = null;
+        isGrappling = false;
+    }
+
+    private void Update()
+    {
+        if(manager.dead)
+        {
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
+
+            closestPoint = null;
+            isGrappling = false;
+
+            return;
+        }
+
+        if(!isGrappling)
+        {
+            if (closestPoint == null)
+                point.gameObject.SetActive(false);
+            else
+                point.gameObject.SetActive(true);
+
+            SetClosest();
+        }
+
+        if (Input.GetMouseButton(1) && closestPoint)
+        {
+            distanceJoint.enabled = true;
+            lineRenderer.enabled = true;
+            isGrappling = true;
+
+            distanceJoint.connectedAnchor = closestPoint.position;
+
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, closestPoint.position);
+        }
+        else
+        {
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
+            isGrappling = false;
+        }
+    }
+
+    void SetClosest()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(mousePos, searchDist, points);
+
+        if (colliders.Length <= 0)
+        {
+            closestPoint = null;
+        }
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (!collider.CompareTag("point")) return;
+
+            if (closestPoint == null)
+            {
+                closestPoint = collider.transform;
+            }
+            else
+            {
+                float pointDist = Vector2.Distance(collider.transform.position, mousePos);
+                float currentDist = Vector2.Distance(closestPoint.position, mousePos);
+
+                if (pointDist < currentDist)
+                {
+                    closestPoint = collider.transform;
+                }
+            }
+        }
+
+        point.position = closestPoint.position;
+    }
+}

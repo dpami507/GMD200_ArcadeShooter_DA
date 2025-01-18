@@ -2487,13 +2487,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064fc749769596440ba771a69db55df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
+  speed: 2
   groundCheck: {fileID: 1858178587}
   groundCheckSize: {x: 0.25, y: 0.01}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  jumpForce: 15
+  jumpForce: 10
   extraGravity: 1
   handPivot: {fileID: 1465799536}
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 1488262337}
   - component: {fileID: 1488262336}
   m_Layer: 5
-  m_Name: DeathTitle
+  m_Name: GameTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2911,7 +2911,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Title
+  m_text: 'Grappler
+
+    Cube of Power'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cd32f4c16f2556743addfad57afe6ee9, type: 2}
   m_sharedMaterial: {fileID: 2598038959547698822, guid: cd32f4c16f2556743addfad57afe6ee9, type: 2}
@@ -2938,8 +2940,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 45.38
+  m_fontSizeBase: 45.38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8351,11 +8353,11 @@ MonoBehaviour:
   lowerSpeed: 0.1
   platform: {fileID: 1222108840}
   lava: {fileID: 632262361}
+  platformSpawn: {fileID: 1094794695961112240, guid: faff1f35518804941982102b8cebac7b, type: 3}
   point: {fileID: 2953642590572234424, guid: 4c4bac12e4375d04a88abf3f29a6ec61, type: 3}
-  amount: 500
+  amount: 250
   height: 100
   width: 50
-  gameStarted: 0
 --- !u!1 &2102975008
 GameObject:
   m_ObjectHideFlags: 0

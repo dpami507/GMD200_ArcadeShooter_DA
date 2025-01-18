@@ -37,13 +37,18 @@ public class PlayerManager : MonoBehaviour
     {
         if(manager.dead) { return; }
 
-        Move();
         FaceCursor();
 
         if(health.currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if(manager.dead) { return; }
+        Move();
     }
 
     //Mooove
@@ -59,7 +64,7 @@ public class PlayerManager : MonoBehaviour
 
             //Counter Force
             Vector2 currentVel = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(-currentVel);
+            rb.AddForce(-currentVel / 8, ForceMode2D.Impulse);
         }
         else if(rb.velocity.x > .01f || rb.velocity.x < -.01f)
         {

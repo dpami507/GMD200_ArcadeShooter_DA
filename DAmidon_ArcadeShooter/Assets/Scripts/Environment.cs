@@ -18,6 +18,7 @@ public class Environment : MonoBehaviour
     Vector3 endPos;
 
     [Header("Grapple Points")]
+    public GameObject platformSpawn;
     public GameObject point;
     public int amount;
     public int height;
@@ -38,35 +39,46 @@ public class Environment : MonoBehaviour
 
     private void Update()
     {
+        //Start
         if(!isStarted && manager.gameStarted)
         {
-            Debug.Log("0");
             isStarted = true;
             StartCoroutine(LowerPlatform());
         }
 
+        //Lava follow player X
         lava.position = new Vector2(lavaStartPos.x + player.position.x, lavaStartPos.y);
 
+        //Lower Platform
         if(manager.gameStarted)
-        {
-            Debug.Log("2");
             platform.position = Vector2.Lerp(platform.position, endPos, lowerSpeed * Time.deltaTime);
-        }
     }
 
     public void SpawnPoints()
     {
         for (int i = 0; i < amount; i++)
         {
-            Vector2 randPos = new Vector2(Random.Range(-width, width), Random.Range(0, height));
-            Instantiate(point, randPos, Quaternion.identity);
+            float random = Random.Range(0, 100);
+
+            if(random < 98)
+            {
+                //Spawn Point
+                Vector2 randPos = new Vector2(Random.Range(-width, width), Random.Range(0, height));
+                Instantiate(point, randPos, Quaternion.identity);
+            }
+            else
+            {
+                //SpawnPlatform
+                Vector2 randPos = new Vector2(Random.Range(-width, width), Random.Range(0, height));
+                Instantiate(platformSpawn, randPos, Quaternion.identity);
+            }
         }    
     }
 
     IEnumerator LowerPlatform()
     {
+        //Wait then set pos
         yield return new WaitForSeconds(waitTime);
         endPos = new Vector2(platform.position.x, platform.position.y - platformHeight);
-        Debug.Log("1");
     }
 }

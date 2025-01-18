@@ -111,7 +111,10 @@ public class EnemyScript : MonoBehaviour
     void Die()
     {
         FindFirstObjectByType<SoundManager>().PlaySound("Explosion");
-        FindFirstObjectByType<GameManager>().UpdateScore(scoreWorth);
+
+        if(!FindFirstObjectByType<GameManager>().dead)
+            FindFirstObjectByType<GameManager>().UpdateScore(scoreWorth);
+
         ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
         explosion_.transform.localScale = transform.localScale;
         explosion_.startColor = color;

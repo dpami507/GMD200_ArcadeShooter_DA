@@ -27,8 +27,9 @@ public class Spawner : MonoBehaviour
 
         spawned = FindObjectsOfType<EnemyScript>().Length;
 
+        //Spawn logic
         lastSpawned += Time.deltaTime;
-        if(lastSpawned >= waveTimer)
+        if(lastSpawned >= waveTimer && !manager.dead)
         {
             lastSpawned = 0;
             SpawnWave();
@@ -39,26 +40,29 @@ public class Spawner : MonoBehaviour
     {
         for(int i = 0; i < spawnedEnemies; i++)
         {
-            if (spawned > 7) return;
-            Vector2 spawnPos = GetSpawnPos();
+            //Dont spawn if there are more than 7 enemies
+            if (spawned <= 7)
+            {
+                Vector2 spawnPos = GetSpawnPos();
 
-            Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            }
         }
-
-        spawnedEnemies++;
     }
 
     Vector2 GetSpawnPos()
     {
+        //Get cam bounds and add offset as to hide enemy spawning
         Camera cam = playerCam.GetComponent<Camera>();
         float camWidth = cam.orthographicSize * ((float)16 / 9) + 4;
         float camHeight = cam.orthographicSize + 4;
-        Vector2 bounds = new Vector2(camWidth, camHeight);
 
+        //Get random pos on either left or right of screen
         float spawnX = (Random.Range(-camWidth, camWidth) > 0) ? camWidth : -camWidth;
         float spawnY = Random.Range(-camHeight, camHeight);
         Vector3 spawnPos = new Vector3(spawnX, spawnY, 0) + playerCam.transform.position;
 
+        //Return pos
         return spawnPos;
     }
 }

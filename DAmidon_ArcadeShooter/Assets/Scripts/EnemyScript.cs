@@ -52,21 +52,12 @@ public class EnemyScript : MonoBehaviour
         Move();
         transform.rotation = Quaternion.Lerp(transform.rotation, GetRotation(), rotSpeed * Time.deltaTime);
 
+        //Shooting Logic
         lastShot += Time.deltaTime;
         if (CheckIfCanFire() && lastShot > (1 / shotsPerSecond))
         {
             lastShot = 0;
             Fire();
-        }
-
-        void Fire()
-        {
-            FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
-            GameObject bullet_ = Instantiate(bullet, muzzle.position, muzzle.rotation);
-            bullet_.GetComponent<BulletScript>().damage = damage;
-            bullet_.GetComponent<SpriteRenderer>().color = color;
-            bullet_.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
-            bullet_.GetComponent<Rigidbody2D>().velocity = bullet_.transform.up * bulletSpeed;
         }
 
         if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
@@ -75,8 +66,19 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    void Fire()
+    {
+        FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
+        GameObject bullet_ = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        bullet_.GetComponent<BulletScript>().damage = damage;
+        bullet_.GetComponent<SpriteRenderer>().color = color;
+        bullet_.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
+        bullet_.GetComponent<Rigidbody2D>().velocity = bullet_.transform.up * bulletSpeed;
+    }
+
     bool CheckIfCanFire()
     {
+        //See if angle is within fire range
         float zRot = transform.rotation.eulerAngles.z;
         float desZRot = GetRotation().eulerAngles.z;
 
@@ -87,6 +89,7 @@ public class EnemyScript : MonoBehaviour
 
     Quaternion GetRotation()
     {
+        //Trig!
         float x = target.position.x - transform.position.x;
         float y = target.position.y - transform.position.y;
         float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
@@ -95,6 +98,7 @@ public class EnemyScript : MonoBehaviour
         return desiredRot;  
     }
 
+    //Move if far away
     void Move()
     {
         float dist = Vector2.Distance(transform.position, target.position);

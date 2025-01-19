@@ -19,6 +19,7 @@ public class CameraFollowScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Add the players y velocity as to see more
         Vector3 velPos = new Vector3(0, playerRb.velocity.y * velocityMultiplier, 0);
         Vector3 desiredPos = target.position + offset + velPos;
 

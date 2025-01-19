@@ -363,6 +363,9 @@ MonoBehaviour:
   currentHealth: 0
   canvas: {fileID: 5358624527450714502}
   healthBar: {fileID: 7200627239928888107}
+  healthBarSpeed: 10
+  healthBarTransSpeed: 0
+  rotAmount: 0
 --- !u!96 &2076132925198893550
 TrailRenderer:
   serializedVersion: 3

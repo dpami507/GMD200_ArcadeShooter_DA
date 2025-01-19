@@ -11,26 +11,31 @@ public class SoundManager : MonoBehaviour
     {
         foreach (var sound in sounds)
         {
-            if(sound.name == soundName)
+            if(sound.name == soundName) //Search for matching sound name
             {
+                //Create and setup GO
                 GameObject source_ = Instantiate(source, transform.position, Quaternion.identity);
                 source_.name = "Sound: " + sound.name;
                 AudioSource audioSource = source_.GetComponent<AudioSource>();
 
+                //Set clip, volume, random pitch, and play
                 audioSource.clip = sound.clip;
                 audioSource.volume = sound.volume;
 
+                //Makes sounds slightly less annoying
                 float pitch = Random.Range(sound.pitch.x, sound.pitch.y);
                 audioSource.pitch = pitch; 
 
                 audioSource.Play();
 
+                //Cleanup
                 Destroy(source_, sound.length);
             }
         }
     }
 }
 
+//Sound Class
 [System.Serializable]
 public class Sound
 {

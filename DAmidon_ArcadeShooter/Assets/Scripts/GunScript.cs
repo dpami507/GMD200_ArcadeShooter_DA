@@ -14,14 +14,16 @@ public class GunScript : MonoBehaviour
 
     private void Update()
     {
+        //Shooting Logic
         lastShot += Time.deltaTime;
-        if(Input.GetButton("Fire1") && lastShot > (1 / shotsPerSecond))
+        if(Input.GetButton("Fire1") && lastShot > (1 / shotsPerSecond) && FindFirstObjectByType<GameManager>().gameStarted)
         {
             Fire();
             lastShot = 0;
         }
     }
 
+    //Shoot
     void Fire()
     {
         FindFirstObjectByType<SoundManager>().PlaySound("Shoot");

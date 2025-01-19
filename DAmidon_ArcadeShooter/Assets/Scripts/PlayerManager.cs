@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     public Color color;
     public GameObject body;
 
+    //Other
     Health health;
     GameManager manager;
 
@@ -35,7 +36,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(manager.dead) { return; }
+        if(manager.dead || !manager.gameStarted) { return; }
 
         FaceCursor();
 
@@ -47,7 +48,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(manager.dead) { return; }
+        if(manager.dead || !manager.gameStarted) { return; }
         Move();
     }
 
@@ -90,12 +91,15 @@ public class PlayerManager : MonoBehaviour
     //Face Cursor
     void FaceCursor()
     {
+        //Get Mouse Pos
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        //Calculate Angle
         float x = mousePos.x - transform.position.x;
         float y = mousePos.y - transform.position.y;
         float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
 
+        //Rotate
         handPivot.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
@@ -118,9 +122,10 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Take away all health / Die when touching Lava
         if(collision.transform.CompareTag("Lava"))
         {
-            health.TakeDamage(health.maxHealth);
+            health.TakeDamage(9999);
         }
     }
 }

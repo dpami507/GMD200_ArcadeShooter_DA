@@ -32,7 +32,7 @@ public class GraplingHook : MonoBehaviour
 
     private void Update()
     {
-        if(manager.dead)
+        if(manager.dead || !manager.gameStarted)
         {
             springJoint.enabled = false;
             lineRenderer.enabled = false;
@@ -53,8 +53,12 @@ public class GraplingHook : MonoBehaviour
             SetClosest();
         }
 
+        //If click and there is a point Grapple
         if (Input.GetMouseButton(1) && closestPoint)
         {
+            if(!isGrappling)
+                FindFirstObjectByType<SoundManager>().PlaySound("Grapple");
+
             springJoint.enabled = true;
             lineRenderer.enabled = true;
             isGrappling = true;
@@ -65,7 +69,7 @@ public class GraplingHook : MonoBehaviour
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, closestPoint.position);
         }
-        else
+        else //No grapple
         {
             springJoint.enabled = false;
             lineRenderer.enabled = false;
@@ -73,6 +77,7 @@ public class GraplingHook : MonoBehaviour
         }
     }
 
+    //Get closest point to grapple
     void SetClosest()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

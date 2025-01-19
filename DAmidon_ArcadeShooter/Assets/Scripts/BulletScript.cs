@@ -13,6 +13,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Take Damage from collision
         if (collision.GetComponent<Health>())
             collision.GetComponent<Health>().TakeDamage(damage);
 

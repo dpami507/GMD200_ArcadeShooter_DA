@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,11 +15,14 @@ public class GameManager : MonoBehaviour
     public bool gameStarted;
 
     public GameObject startScreen;
+    public GameObject H2PScreen;
 
     public GameObject deathScreen;
     public TMP_Text deathScore;
     public string[] deathMsgs;
     public TMP_Text deathMsg;
+
+    SoundManager soundManager;
 
     private void Start()
     {
@@ -28,10 +32,14 @@ public class GameManager : MonoBehaviour
 
         startScreen.SetActive(true);
         deathScreen.SetActive(false);
+        H2PScreen.SetActive(false);
+
+        soundManager = FindFirstObjectByType<SoundManager>();
     }
 
     private void Update()
     {
+        //If player is dead set gameOver and do the stuff
         if(dead && !gameOver)
         {
             gameOver = true;
@@ -43,23 +51,33 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        soundManager.PlaySound("Select");
         startScreen.SetActive(false);
         gameStarted = true;
     }
 
     public void Restart()
     {
+        soundManager.PlaySound("Select");
         SceneManager.LoadScene("Game");
+    }
+
+    public void ShowHowToPlay()
+    {
+        soundManager.PlaySound("Select");
+        H2PScreen.SetActive(!H2PScreen.activeInHierarchy);
     }
 
     public void Quit()
     {
+        soundManager.PlaySound("Select");
         Application.Quit();
     }
 
     public void UpdateScore(int value)
     {
+        //Add value then update text
         score += value;
-        scoreTxt.text = score.ToString();
+        scoreTxt.text = "SCORE: " + score.ToString();
     }
 }

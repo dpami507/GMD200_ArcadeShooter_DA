@@ -19,11 +19,13 @@ public class Environment : MonoBehaviour
 
     [Header("Grapple Points")]
     public GameObject platformSpawn;
+    public GameObject health;
     public GameObject point;
     public int amount;
     public int height;
     public int width;
 
+    //Other
     GameManager manager;
     bool isStarted;
 
@@ -60,17 +62,23 @@ public class Environment : MonoBehaviour
         {
             float random = Random.Range(0, 100);
 
-            if(random < 98)
+            if(random < 90)
             {
                 //Spawn Point
                 Vector2 randPos = new Vector2(Random.Range(-width, width), Random.Range(0, height));
-                Instantiate(point, randPos, Quaternion.identity);
+                Instantiate(point, randPos, Quaternion.identity, this.transform);
+            }
+            else if(random < 98)
+            {
+                //Spawn Health
+                Vector2 randPos = new Vector2(Random.Range(-width, width), Random.Range(0, height));
+                Instantiate(health, randPos, Quaternion.identity, this.transform);
             }
             else
             {
-                //SpawnPlatform
+                //Spawn Platform
                 Vector2 randPos = new Vector2(Random.Range(-width, width), Random.Range(0, height));
-                Instantiate(platformSpawn, randPos, Quaternion.identity);
+                Instantiate(platformSpawn, randPos, Quaternion.identity, this.transform);
             }
         }    
     }

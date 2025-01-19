@@ -275,7 +275,7 @@ MonoBehaviour:
   shotsPerSecond: 1
   color: {r: 1, g: 0, b: 0, a: 1}
   sprite: {fileID: 2901398751390873953}
-  scoreWorth: 25
+  scoreWorth: 100
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
 --- !u!50 &4442068423869957430
 Rigidbody2D:
@@ -363,6 +363,7 @@ MonoBehaviour:
   currentHealth: 0
   canvas: {fileID: 5358624527450714502}
   healthBar: {fileID: 7200627239928888107}
+  isPlayer: 0
   healthBarSpeed: 10
   healthBarTransSpeed: 0
   rotAmount: 0

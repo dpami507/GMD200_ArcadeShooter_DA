@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -23,8 +24,10 @@ public class PlayerManager : MonoBehaviour
     public GameObject body;
 
     //Other
+    [Header("Other")]
     Health health;
     GameManager manager;
+    public Transform sprite;
 
     private void Start()
     {
@@ -39,6 +42,7 @@ public class PlayerManager : MonoBehaviour
         if(manager.dead || !manager.gameStarted) { return; }
 
         FaceCursor();
+        RotateAndStrechTowardVel();
 
         if(health.currentHealth <= 0)
         {
@@ -50,6 +54,23 @@ public class PlayerManager : MonoBehaviour
     {
         if(manager.dead || !manager.gameStarted) { return; }
         Move();
+    }
+
+    void RotateAndStrechTowardVel()
+    {
+        //Rotate
+        Vector2 rbNorm = rb.velocity.normalized;
+        float angle = Mathf.Atan2(rbNorm.y, rbNorm.x) * Mathf.Rad2Deg;
+        sprite.rotation = Quaternion.Euler(0, 0, angle);
+
+        //Stretch
+        float rbMag = Mathf.Abs(rb.velocity.magnitude);
+        float shrinkFactor = 0.1f;
+        float yScale = Mathf.Max(0.5f, 1 - (rbMag * shrinkFactor));
+        Vector2 scale = new Vector2(1, yScale);
+
+        sprite.localScale = scale;
+        transform.GetComponent<BoxCollider2D>().size = scale;
     }
 
     //Mooove

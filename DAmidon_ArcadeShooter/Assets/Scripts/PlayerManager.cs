@@ -134,11 +134,23 @@ public class PlayerManager : MonoBehaviour
     {
         manager.dead = true;
         FindFirstObjectByType<SoundManager>().PlaySound("PlayerDeath");
+
         ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
         explosion_.transform.localScale = transform.localScale;
-        explosion_.startColor = color;
+        ParticleSystem.MainModule main = explosion_.main;
+        main.startColor = color;
         Destroy(explosion_, 2f);
+
         body.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<EnemyScript>() && rb.velocity.magnitude > 16)
+        {
+            Debug.Log(rb.velocity.magnitude);
+            collision.GetComponent<EnemyScript>().Die();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

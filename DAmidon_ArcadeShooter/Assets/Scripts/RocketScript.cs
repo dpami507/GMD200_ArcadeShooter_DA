@@ -19,6 +19,7 @@ public class RocketScript : MonoBehaviour
     Rigidbody2D rb;
     Health health;
     TrailRenderer trail;
+    [HideInInspector] public RailgunScript launcher;
 
     void Start()
     {
@@ -39,8 +40,8 @@ public class RocketScript : MonoBehaviour
         //Get Distance to player
         float dist = Vector2.Distance(transform.position, target.position);
 
-        //If health is low or close enough to player, Explode
-        if (health.currentHealth <= 0 || dist < explodeDist)
+        //If health is below zero, close enough to player, or launcher has been killed: Explode
+        if (health.currentHealth <= 0 || dist < explodeDist || launcher == null)
             Explode();
 
         //Rotate to Target
@@ -81,12 +82,6 @@ public class RocketScript : MonoBehaviour
             }
         }
 
-        FindFirstObjectByType<SoundManager>().PlaySound("Explosion");
-
-        ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
-        explosion_.transform.localScale = transform.localScale;
-        explosion_.startColor = color;
-        Destroy(explosion_, 2f);
-        Destroy(this.gameObject);
+        health.Die(color, "Explosion");
     }
 }

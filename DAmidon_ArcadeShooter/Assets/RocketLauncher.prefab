@@ -5546,17 +5546,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rocket: {fileID: 7129659918662563033, guid: 6316371a5cf8e04419f2e1fb8b96119a, type: 3}
   rotSpeed: 10
-  firingAngle: 90
+  speed: 0
+  lerpSpeed: 0
+  moveDist: 0
   muzzle: {fileID: 2170682333893732196}
-  chargeTime: 2
+  bullet: {fileID: 7129659918662563033, guid: 6316371a5cf8e04419f2e1fb8b96119a, type: 3}
+  bulletSpeed: 0
+  bulletSize: 0
+  firingAngle: 90
+  damage: 0
+  canFire: 0
   shotsPerSecond: 0.25
+  lastShot: 0
+  color: {r: 1, g: 0, b: 0.5019608, a: 1}
+  sprite: {fileID: 0}
+  scoreWorth: 50
+  health: {fileID: 0}
+  rocket: {fileID: 7129659918662563033, guid: 6316371a5cf8e04419f2e1fb8b96119a, type: 3}
+  chargeTime: 2
   chargePart: {fileID: 4774833646410366031}
   firePart: {fileID: 6006213770722608640}
-  scoreWorth: 50
-  explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
-  color: {r: 1, g: 0, b: 0.5019608, a: 1}
 --- !u!58 &6000016442999551413
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5653,8 +5663,9 @@ MonoBehaviour:
   currentHealth: 0
   canvas: {fileID: 7460851160917656266}
   healthBar: {fileID: 3791209071587448530}
-  isPlayer: 0
   healthBarSpeed: 10
+  explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
+  isPlayer: 0
   healthBarTransSpeed: 0
   rotAmount: 0
 --- !u!1 &2888115773236886787
@@ -6139,7 +6150,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

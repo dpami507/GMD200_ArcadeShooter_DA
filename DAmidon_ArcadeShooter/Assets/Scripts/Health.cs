@@ -5,39 +5,41 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    [Header("Logic")]
     public int maxHealth;
     public int currentHealth;
     float displayedPercent;
 
+    [Header("Canvas Stuff")]
     public Transform canvas;
-
     public Image healthBar;
+    public float healthBarSpeed;
+
+    [Header("Death")]
+    public ParticleSystem explosion;
 
     [Header("Just Player")]
     public bool isPlayer;
     Transform healthBarTrans;
-    public float healthBarSpeed;
     public float healthBarTransSpeed;
     public float rotAmount;
     float scale;
 
-    public void Start()
+    void Start()
     {
-        //Set text
+        //Set bar
         currentHealth = maxHealth;
         displayedPercent = currentHealth;
-        TakeDamage(0);
 
         //isPlayer?
         isPlayer = GetComponent<PlayerManager>();
 
-        if (healthBar == null) { return; }
-
         //SetHealthBar
-        healthBarTrans = healthBar.transform.parent;
+        if (healthBar != null)
+            healthBarTrans = healthBar.transform.parent;
     }
 
-    private void Update()
+    void Update()
     {
         //stop greater than max >:(
         if (currentHealth > maxHealth)
@@ -75,5 +77,19 @@ public class Health : MonoBehaviour
             float angle = Random.Range(-rotAmount, rotAmount);
             healthBarTrans.rotation = Quaternion.Euler(0, 0, angle);
         }
+    }
+
+    public void Die(Color color, string sound)
+    {
+        FindFirstObjectByType<SoundManager>().PlaySound(sound);
+
+        ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
+        explosion_.transform.localScale = transform.localScale;
+
+        ParticleSystem.MainModule main = explosion_.main;
+        main.startColor = color;
+
+        Destroy(explosion_, 2f);
+        Destroy(this.gameObject);
     }
 }

@@ -9,9 +9,9 @@ public class EnemyScript : MonoBehaviour
     Rigidbody2D rb;
     public Transform target;
     public float rotSpeed;
-    public float speed;
-    public float lerpSpeed;
-    public float moveDist;
+    [SerializeField] float speed;
+    [SerializeField] float lerpSpeed;
+    [SerializeField] float moveDist;
 
     [Header("Gun")]
     public Transform muzzle;
@@ -22,7 +22,7 @@ public class EnemyScript : MonoBehaviour
     public int damage;
     [SerializeField] bool canFire;
     public float shotsPerSecond;
-    float lastShot;
+    [HideInInspector] public float lastShot;
 
     [Header("Sprite")]
     public Color color;
@@ -31,8 +31,7 @@ public class EnemyScript : MonoBehaviour
 
     [Header("Misc")]
     public int scoreWorth;
-    Health health;
-    public ParticleSystem explosion;
+    [HideInInspector] public Health health;
 
     private void Start()
     {
@@ -51,7 +50,7 @@ public class EnemyScript : MonoBehaviour
     private void Update()
     {
         Move();
-        transform.rotation = Quaternion.Lerp(transform.rotation, GetRotation(), rotSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, GetRotation(90), rotSpeed * Time.deltaTime);
 
         //Shooting Logic
         lastShot += Time.deltaTime;
@@ -77,53 +76,47 @@ public class EnemyScript : MonoBehaviour
         bullet_.GetComponent<Rigidbody2D>().velocity = bullet_.transform.up * bulletSpeed;
     }
 
-    bool CheckIfCanFire()
+    public bool CheckIfCanFire()
     {
         //See if angle is within fire range
         float zRot = transform.rotation.eulerAngles.z;
-        float desZRot = GetRotation().eulerAngles.z;
+        float desZRot = GetRotation(90).eulerAngles.z;
 
         if (zRot > desZRot - firingAngle && zRot < desZRot + firingAngle)
             return true;
         else return false;
     }
 
-    Quaternion GetRotation()
+    public Quaternion GetRotation(float offSet)
     {
         //Trig!
         float x = target.position.x - transform.position.x;
         float y = target.position.y - transform.position.y;
         float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
 
-        Quaternion desiredRot = Quaternion.Euler(0, 0, angle - 90);
+        Quaternion desiredRot = Quaternion.Euler(0, 0, angle - offSet);
         return desiredRot;  
     }
 
-    //Move if far away
     void Move()
     {
         float dist = Vector2.Distance(transform.position, target.position);
 
         Vector3 desiredVel;
 
-        if (dist > moveDist)
+        if (dist > moveDist) //Move if far away
             desiredVel = transform.up * speed;
         else desiredVel = Vector3.zero;
 
         rb.velocity = Vector3.Lerp(rb.velocity, desiredVel, lerpSpeed * Time.deltaTime);
     }
 
-    void Die()
+    public void Die()
     {
-        FindFirstObjectByType<SoundManager>().PlaySound("Explosion");
-
-        if(!FindFirstObjectByType<GameManager>().dead)
+        //Make sure isnt dead then add points
+        if (!FindFirstObjectByType<GameManager>().dead)
             FindFirstObjectByType<GameManager>().UpdateScore(scoreWorth);
 
-        ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
-        explosion_.transform.localScale = transform.localScale;
-        explosion_.startColor = color;
-        Destroy(explosion_, 2f);
-        Destroy(this.gameObject);
+        health.Die(color, "Explosion");
     }
 }

@@ -22,7 +22,8 @@ public class HeartScript : MonoBehaviour
 
                 ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
                 explosion_.transform.localScale = transform.localScale;
-                explosion_.startColor = color;
+                ParticleSystem.MainModule main = explosion_.main;
+                main.startColor = color;
                 Destroy(explosion_, 2f);
 
                 Destroy(this.gameObject);

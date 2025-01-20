@@ -40,6 +40,7 @@ public class EnemyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         target = FindObjectOfType<PlayerManager>().transform;
 
+        //Set up trail
         sprite.color = color;
         trail = GetComponent<TrailRenderer>();
         trail.endColor = color;

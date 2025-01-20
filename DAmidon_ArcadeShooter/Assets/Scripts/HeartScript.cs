@@ -14,9 +14,9 @@ public class HeartScript : MonoBehaviour
         {
             Health health = collision.GetComponent<Health>();
 
-            if (health.isPlayer)
+            if (health.isPlayer && health.currentHealth < health.maxHealth)
             {
-                health.currentHealth += 10;
+                health.currentHealth += 20;
 
                 FindFirstObjectByType<SoundManager>().PlaySound("Health");
 

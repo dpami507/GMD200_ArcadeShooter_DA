@@ -28,23 +28,27 @@ public class Health : MonoBehaviour
         displayedPercent = currentHealth;
         TakeDamage(0);
 
-        //SetHealthBar
-        healthBarTrans = healthBar.transform.parent;
-
         //isPlayer?
         isPlayer = GetComponent<PlayerManager>();
+
+        if (healthBar == null) { return; }
+
+        //SetHealthBar
+        healthBarTrans = healthBar.transform.parent;
     }
 
     private void Update()
     {
-        //Set rotation so when enemies rotate the health bar does not
-        canvas.rotation = Quaternion.Euler(0, 0, 0);
-
         //stop greater than max >:(
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
 
         displayedPercent = Mathf.Lerp(displayedPercent, currentHealth, healthBarSpeed * Time.deltaTime);
+
+        if (canvas == null || healthBar == null) { return; }
+
+        //Set rotation so when enemies rotate the health bar does not
+        canvas.rotation = Quaternion.Euler(0, 0, 0);
 
         //Lerp for smoooooothness
         if (isPlayer)

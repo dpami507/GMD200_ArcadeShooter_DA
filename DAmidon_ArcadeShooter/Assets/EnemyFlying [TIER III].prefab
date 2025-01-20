@@ -270,7 +270,7 @@ MonoBehaviour:
   bulletSpeed: 7.5
   bulletSize: 0.5
   firingAngle: 15
-  damage: 4
+  damage: 5
   canFire: 0
   shotsPerSecond: 1
   color: {r: 1, g: 0, b: 0, a: 1}
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aa48db1dacfd04383cfc2769c90b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 14
+  maxHealth: 15
   currentHealth: 0
   canvas: {fileID: 5358624527450714502}
   healthBar: {fileID: 7200627239928888107}

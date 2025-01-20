@@ -283,10 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33aa48db1dacfd04383cfc2769c90b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 5
   currentHealth: 0
   canvas: {fileID: 1393477241246763046}
   healthBar: {fileID: 2603367031043335869}
+  isPlayer: 0
   healthBarSpeed: 10
   healthBarTransSpeed: 0
   rotAmount: 0

@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
     {
         if(!manager.gameStarted) { return; }
 
-        spawned = FindObjectsOfType<EnemyScript>().Length;
+        spawned = FindObjectsOfType<EnemyScript>().Length + FindObjectsOfType<RailgunScript>().Length;
 
         //Spawn logic
         lastSpawned += Time.deltaTime;

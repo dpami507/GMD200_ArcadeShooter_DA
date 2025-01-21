@@ -76,6 +76,8 @@ public class Health : MonoBehaviour
 
             float angle = Random.Range(-rotAmount, rotAmount);
             healthBarTrans.rotation = Quaternion.Euler(0, 0, angle);
+
+            FindFirstObjectByType<CameraFollowScript>().Shake((float)value / 2);
         }
     }
 

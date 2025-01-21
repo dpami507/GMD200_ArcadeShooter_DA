@@ -78,7 +78,7 @@ public class RocketScript : MonoBehaviour
         {
             if(item.GetComponent<Health>())
             {
-                item.GetComponent<Health>().currentHealth -= damage;
+                item.GetComponent<Health>().TakeDamage(damage);
             }
         }
 

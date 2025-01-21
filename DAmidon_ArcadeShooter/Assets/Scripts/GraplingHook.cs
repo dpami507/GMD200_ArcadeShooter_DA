@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GraplingHook : MonoBehaviour
@@ -23,58 +22,72 @@ public class GraplingHook : MonoBehaviour
         springJoint = GetComponent<SpringJoint2D>();
         lineRenderer = GetComponent<LineRenderer>();
 
-        springJoint.enabled = false;
-        lineRenderer.enabled = false;
-
+        StopGrapple();
         closestPoint = null;
-        isGrappling = false;
     }
 
     private void Update()
     {
-        if(manager.dead || !manager.gameStarted)
+        //Stop if Game Not Running
+        if (manager.dead || !manager.gameStarted)
         {
-            springJoint.enabled = false;
-            lineRenderer.enabled = false;
-
+            StopGrapple();
             closestPoint = null;
-            isGrappling = false;
 
             return;
         }
 
         if(!isGrappling)
         {
+            SetClosest();
+
             if (closestPoint == null)
                 point.gameObject.SetActive(false);
-            else
-                point.gameObject.SetActive(true);
+            else point.gameObject.SetActive(true);
 
-            SetClosest();
+            if(closestPoint) //Set visual to closest point to mouse
+                point.position = closestPoint.position;
         }
 
-        //If click and there is a point Grapple
+        //If click and there is a point then grapple
         if (Input.GetMouseButton(1) && closestPoint)
         {
-            if(!isGrappling)
-                FindFirstObjectByType<SoundManager>().PlaySound("Grapple");
-
-            springJoint.enabled = true;
-            lineRenderer.enabled = true;
-            isGrappling = true;
-
-            springJoint.connectedAnchor = closestPoint.position;
-            springJoint.distance = Vector2.Distance(transform.position, closestPoint.position) * .6f;
-
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, closestPoint.position);
+            StartGrapple();
         }
         else //No grapple
         {
-            springJoint.enabled = false;
-            lineRenderer.enabled = false;
-            isGrappling = false;
+            StopGrapple();
         }
+    }
+
+    void StartGrapple()
+    {
+        //Play sound
+        if (!isGrappling)
+            FindFirstObjectByType<SoundManager>().PlaySound("Grapple");
+
+        isGrappling = true;
+
+        Vector3 closestPos = closestPoint.position;
+
+        springJoint.enabled = true;
+        lineRenderer.enabled = true;
+
+        springJoint.connectedAnchor = closestPos;
+        springJoint.distance = Vector2.Distance(transform.position, closestPos) * .6f;
+
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, closestPos);
+
+        point.position = closestPos;
+        point.gameObject.SetActive(true);
+    }
+
+    void StopGrapple()
+    {
+        springJoint.enabled = false;
+        lineRenderer.enabled = false;
+        isGrappling = false;
     }
 
     //Get closest point to grapple
@@ -108,8 +121,5 @@ public class GraplingHook : MonoBehaviour
                 }
             }
         }
-
-        if(closestPoint)
-            point.position = closestPoint.position;
     }
 }

@@ -64,9 +64,11 @@ MonoBehaviour:
   damage: 3
   canFire: 0
   shotsPerSecond: 3
+  lastShot: 0
   color: {r: 1, g: 0.5019608, b: 0, a: 1}
   sprite: {fileID: 5366354006295638455}
   scoreWorth: 50
+  health: {fileID: 0}
 --- !u!50 &974664135522607009
 Rigidbody2D:
   serializedVersion: 4
@@ -92,7 +94,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!68 &103096902463366507
 EdgeCollider2D:

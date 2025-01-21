@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -158,7 +157,7 @@ public class PlayerManager : MonoBehaviour
         //Take away all health / Die when touching Lava
         if(collision.transform.CompareTag("Lava"))
         {
-            health.TakeDamage(9999);
+            health.TakeDamage(health.currentHealth);
         }
     }
 }

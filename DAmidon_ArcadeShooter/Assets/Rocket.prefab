@@ -141,6 +141,7 @@ MonoBehaviour:
   harmDist: 2
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
   color: {r: 1, g: 0, b: 0.5019608, a: 1}
+  launcher: {fileID: 0}
 --- !u!114 &7342720430571740911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!68 &1410020320550751929
 EdgeCollider2D:

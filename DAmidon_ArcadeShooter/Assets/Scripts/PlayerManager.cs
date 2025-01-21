@@ -139,6 +139,7 @@ public class PlayerManager : MonoBehaviour
         ParticleSystem.MainModule main = explosion_.main;
         main.startColor = color;
         Destroy(explosion_, 2f);
+        rb.velocity = Vector3.zero;
 
         body.SetActive(false);
     }

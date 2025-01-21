@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433faa8b758afed4f9295b193c697276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PixelationFactor: 0.4
+  _PixelationFactor: 0.5
   _ColorEmulationMode: 0
   _FullscreenColorDepth: {x: 256, y: 256, z: 256}
   _FullscreenDitherDepth: {x: 240, y: 240, z: 240}
@@ -3895,7 +3895,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1330248389}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2d5415a2c9eb1f74fa106f779435d62c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4437,7 +4437,6 @@ MonoBehaviour:
   - zoinks
   - Not your best
   - Me > You
-  - The score should go up more
   deathMsg: {fileID: 1737998931}
 --- !u!4 &1484583999
 Transform:

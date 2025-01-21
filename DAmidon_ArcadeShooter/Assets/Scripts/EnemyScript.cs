@@ -16,18 +16,18 @@ public class EnemyScript : MonoBehaviour
     [Header("Gun")]
     public Transform muzzle;
     public GameObject bullet;
-    public float bulletSpeed;
-    public float bulletSize;
-    public float firingAngle;
-    public int damage;
+    [SerializeField] float bulletSpeed;
+    [SerializeField] float bulletSize;
+    [SerializeField] float firingAngle;
+    [SerializeField] int damage;
     [SerializeField] bool canFire;
     public float shotsPerSecond;
     [HideInInspector] public float lastShot;
 
     [Header("Sprite")]
-    public Color color;
+    [SerializeField] Color color;
     TrailRenderer trail;
-    public SpriteRenderer sprite;
+    [SerializeField] SpriteRenderer sprite;
 
     [Header("Misc")]
     public int scoreWorth;

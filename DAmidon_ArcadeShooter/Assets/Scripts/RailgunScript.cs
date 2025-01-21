@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RailgunScript : EnemyScript
 {
     [Header("Firing")]
-    public GameObject rocket;
-    public float chargeTime;
-    public ParticleSystem chargePart;
-    public ParticleSystem firePart;
+    [SerializeField] float chargeTime;
+    [SerializeField] ParticleSystem chargePart;
+    [SerializeField] ParticleSystem firePart;
+    [SerializeField] LayerMask blocksLOS;
+
+    LineRenderer lineLOS;
     bool firing;
 
     private void Start()
     {
         health = GetComponent<Health>();
-
+        lineLOS = GetComponent<LineRenderer>();
         chargePart.Stop();
         firePart.Stop();
         firing = false;
@@ -25,8 +26,16 @@ public class RailgunScript : EnemyScript
 
     private void Update()
     {
+        if(HasLOS())
+        {
+            lineLOS.enabled = true;
+            lineLOS.SetPosition(0, transform.position);
+            lineLOS.SetPosition(1, target.position);
+        }
+        else lineLOS.enabled = false;
+
         //Kill
-        if (health.currentHealth <= 0)
+        if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
             Die();
 
         //Rotate to Target
@@ -34,7 +43,7 @@ public class RailgunScript : EnemyScript
 
         //Shooting Logic
         lastShot += Time.deltaTime;
-        if (CheckIfCanFire() && lastShot > (1 / shotsPerSecond) && !firing)
+        if (CheckIfCanFire() && lastShot > (1 / shotsPerSecond) && !firing && HasLOS())
         {
             lastShot = 0;
             StartCoroutine(StartFire());
@@ -55,8 +64,18 @@ public class RailgunScript : EnemyScript
         //Fire Rocket
         firePart.Play();
         FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
-        GameObject ro = Instantiate(rocket, muzzle.position, muzzle.rotation);
+        GameObject ro = Instantiate(bullet, muzzle.position, muzzle.rotation);
         ro.GetComponent<RocketScript>().launcher = this;
         firing = false;
+    }
+
+    bool HasLOS()
+    {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, target.position, blocksLOS);
+        
+        if(hit) //Will only hit layers that block it so if it gets anything there is no LOS :(
+            return false;
+
+        return true;
     }
 }

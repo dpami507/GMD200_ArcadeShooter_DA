@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject[] enemies;
+    [SerializeField] GameObject[] enemies;
 
-    public Transform playerCam;
+    [SerializeField] Transform playerCam;
 
-    public int spawnedEnemies;
-    public int spawned;
+    [SerializeField] int spawnedEnemies;
+    [SerializeField] int spawned;
 
-    public float waveTimer;
+    [SerializeField] float waveTimer;
     float lastSpawned;
 
     GameManager manager;
@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    Vector2 GetSpawnPos()
+    public Vector2 GetSpawnPos()
     {
         //Get cam bounds and add offset as to hide enemy spawning
         Camera cam = playerCam.GetComponent<Camera>();

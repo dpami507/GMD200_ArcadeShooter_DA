@@ -5,21 +5,21 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour
 {
     [Header("Movement")]
-    public Transform target;
-    public float rotSpeed;
-    public float speed;
+    [SerializeField] Transform target;
+    [SerializeField] float rotSpeed;
+    [SerializeField] float speed;
 
     [Header("Explosion")]
-    public int damage;
-    public float explodeDist;
-    public float harmDist;
-    public ParticleSystem explosion;
-    public Color color;
+    [SerializeField] int damage;
+    [SerializeField] float explodeDist;
+    [SerializeField] float harmDist;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] Color color;
 
     Rigidbody2D rb;
     Health health;
     TrailRenderer trail;
-    [HideInInspector] public RailgunScript launcher;
+    [HideInInspector] public GameObject launcher;
 
     void Start()
     {
@@ -35,7 +35,8 @@ public class RocketScript : MonoBehaviour
 
     void Update()
     {
-        Move();
+        //Move
+        rb.velocity = transform.up * speed;
 
         //Get Distance to player
         float dist = Vector2.Distance(transform.position, target.position);
@@ -57,17 +58,6 @@ public class RocketScript : MonoBehaviour
 
         Quaternion desiredRot = Quaternion.Euler(0, 0, angle - 90);
         return desiredRot;
-    }
-
-    //Move if far away
-    void Move()
-    {
-        float dist = Vector2.Distance(transform.position, target.position);
-
-        Vector3 desiredVel;
-        desiredVel = transform.up * speed;
-
-        rb.velocity = transform.up * speed;
     }
 
     void Explode()

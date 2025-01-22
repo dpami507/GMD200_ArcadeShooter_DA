@@ -6,20 +6,27 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public TMP_Text scoreTxt;
-    public int score;
+    [SerializeField] TMP_Text scoreTxt;
+    [SerializeField] int score;
+
+    [SerializeField] GameObject bossAsset;
+    [SerializeField] float neededBossScore;
+    public bool bossSpawned;
+    float currentBossScore;
+
     public bool dead;
     public bool gameOver;
     public bool gameStarted;
 
-    public GameObject startScreen;
-    public GameObject H2PScreen;
+    [SerializeField] GameObject startScreen;
+    [SerializeField] GameObject H2PScreen;
 
-    public GameObject deathScreen;
-    public TMP_Text deathScore;
-    public string[] deathMsgs;
-    public TMP_Text deathMsg;
+    [SerializeField] GameObject deathScreen;
+    [SerializeField] TMP_Text deathScore;
+    [SerializeField] string[] deathMsgs;
+    [SerializeField] TMP_Text deathMsg;
 
+    Spawner spawner;
     SoundManager soundManager;
 
     private void Start()
@@ -33,6 +40,8 @@ public class GameManager : MonoBehaviour
         H2PScreen.SetActive(false);
 
         soundManager = FindFirstObjectByType<SoundManager>();
+        spawner = FindFirstObjectByType<Spawner>();
+        currentBossScore = neededBossScore;
     }
 
     private void Update()
@@ -44,6 +53,14 @@ public class GameManager : MonoBehaviour
             deathScreen.SetActive(true);
             deathMsg.text = deathMsgs[Random.Range(0, deathMsgs.Length)];
             deathScore.text = "Score: " + score.ToString();
+        }
+
+        bossSpawned = FindFirstObjectByType<BossScript>();
+
+        if(score > currentBossScore)
+        {
+            currentBossScore += neededBossScore;
+            Instantiate(bossAsset, spawner.GetSpawnPos(), Quaternion.identity);
         }
     }
 

@@ -5,28 +5,28 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     [Header("Movement")]
-    public float speed;
+    [SerializeField] float speed;
     Rigidbody2D rb;
-    public Transform groundCheck;
-    public Vector2 groundCheckSize;
-    public LayerMask groundLayer;
-    public float jumpForce;
-    public float extraGravity;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] Vector2 groundCheckSize;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] float jumpForce;
+    [SerializeField] float extraGravity;
     float jumpCooldown;
 
     [Header("Hands")]
-    public Transform handPivot;
+    [SerializeField] Transform handPivot;
 
     [Header("Death Stuff")]
-    public ParticleSystem explosion;
-    public Color color;
-    public GameObject body;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] Color color;
+    [SerializeField] GameObject body;
 
     //Other
     [Header("Other")]
     Health health;
     GameManager manager;
-    public Transform sprite;
+    [SerializeField] Transform sprite;
 
     private void Start()
     {
@@ -149,7 +149,14 @@ public class PlayerManager : MonoBehaviour
         if(collision.GetComponent<EnemyScript>() && rb.velocity.magnitude > 16)
         {
             Debug.Log(rb.velocity.magnitude);
-            collision.GetComponent<EnemyScript>().Die();
+
+            ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
+            explosion_.transform.localScale = transform.localScale;
+            ParticleSystem.MainModule main = explosion_.main;
+            main.startColor = color;
+            Destroy(explosion_, 2f);
+
+            collision.GetComponent<Health>().TakeDamage(5);
         }
     }
 

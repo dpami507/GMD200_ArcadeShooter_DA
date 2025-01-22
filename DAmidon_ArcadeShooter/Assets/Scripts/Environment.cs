@@ -5,24 +5,24 @@ using UnityEngine;
 public class Environment : MonoBehaviour
 {
     [Header("Starting Platform")]
-    public int waitTime;
-    public int platformHeight;
-    public float lowerSpeed;
-    public Transform platform;
+    [SerializeField] int waitTime;
+    [SerializeField] int platformHeight;
+    [SerializeField] float lowerSpeed;
+    [SerializeField] Transform platform;
 
     [Header("Lava")]
-    public Transform lava;
+    [SerializeField] Transform lava;
     Transform player;
     Vector2 lavaStartPos;
     Vector3 endPos;
 
     [Header("Grapple Points")]
-    public GameObject platformSpawn;
-    public GameObject health;
-    public GameObject point;
-    public int amount;
-    public int height;
-    public int width;
+    [SerializeField] GameObject platformSpawn;
+    [SerializeField] GameObject health;
+    [SerializeField] GameObject point;
+    [SerializeField] int amount;
+    [SerializeField] int height;
+    [SerializeField] int width;
 
     //Other
     GameManager manager;

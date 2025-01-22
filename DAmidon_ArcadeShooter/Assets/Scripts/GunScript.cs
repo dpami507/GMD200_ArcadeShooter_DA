@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour
 {
-    public Transform muzzle;
-    public GameObject bullet;
-    public float bulletSpeed;
-    public float bulletSize;
+    [SerializeField] Transform muzzle;
+    [SerializeField] GameObject bullet;
+    [SerializeField] float bulletSpeed;
+    [SerializeField] float bulletSize;
 
-    public float shotsPerSecond;
+    [SerializeField] float shotsPerSecond;
     float lastShot;
 
     private void Update()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HeartScript : MonoBehaviour
 {
-    public ParticleSystem explosion;
-    public Color color;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] Color color;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

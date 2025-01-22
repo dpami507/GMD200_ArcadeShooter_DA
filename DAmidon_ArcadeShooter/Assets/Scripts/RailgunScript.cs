@@ -65,7 +65,7 @@ public class RailgunScript : EnemyScript
         firePart.Play();
         FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
         GameObject ro = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        ro.GetComponent<RocketScript>().launcher = this;
+        ro.GetComponent<RocketScript>().launcher = this.gameObject;
         firing = false;
     }
 

@@ -11,18 +11,18 @@ public class Health : MonoBehaviour
     float displayedPercent;
 
     [Header("Canvas Stuff")]
-    public Transform canvas;
-    public Image healthBar;
-    public float healthBarSpeed;
+    [SerializeField] Transform canvas;
+    [SerializeField] Image healthBar;
+    [SerializeField] float healthBarSpeed;
 
     [Header("Death")]
-    public ParticleSystem explosion;
+    [SerializeField] ParticleSystem explosion;
 
     [Header("Just Player")]
     public bool isPlayer;
     Transform healthBarTrans;
-    public float healthBarTransSpeed;
-    public float rotAmount;
+    [SerializeField] float healthBarTransSpeed;
+    [SerializeField] float rotAmount;
     float scale;
 
     void Start()
@@ -67,6 +67,7 @@ public class Health : MonoBehaviour
     {
         currentHealth -= value;
 
+
         if (isPlayer)
         {
             scale *= 1.05f;
@@ -76,7 +77,7 @@ public class Health : MonoBehaviour
             float angle = Random.Range(-rotAmount, rotAmount);
             healthBarTrans.rotation = Quaternion.Euler(0, 0, angle);
 
-            FindFirstObjectByType<CameraFollowScript>().Shake((float)value / 2);
+            FindFirstObjectByType<CameraFollowScript>().Shake((float)value / 10);
         }
     }
 

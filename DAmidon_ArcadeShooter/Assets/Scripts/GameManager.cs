@@ -6,18 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Score")]
     [SerializeField] TMP_Text scoreTxt;
     [SerializeField] int score;
 
+    [Header("Boss")]
     [SerializeField] GameObject bossAsset;
+    [SerializeField] GameObject bossWarn;
     [SerializeField] float neededBossScore;
-    public bool bossSpawned;
     float currentBossScore;
 
+    [Header("Game State Bools")]
     public bool dead;
     public bool gameOver;
     public bool gameStarted;
 
+    [Header("Canvas UI Stuff")]
     [SerializeField] GameObject startScreen;
     [SerializeField] GameObject H2PScreen;
 
@@ -55,8 +59,8 @@ public class GameManager : MonoBehaviour
             deathScore.text = "Score: " + score.ToString();
         }
 
-        bossSpawned = FindFirstObjectByType<BossScript>();
-
+        //Boss Spawning
+        bossWarn.SetActive(FindFirstObjectByType<BossScript>());
         if(score > currentBossScore)
         {
             currentBossScore += neededBossScore;

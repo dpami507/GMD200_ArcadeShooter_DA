@@ -532,6 +532,7 @@ MonoBehaviour:
   laserMask:
     serializedVersion: 2
     m_Bits: 520
+  laserDamage: 2
   lasers:
   - muzzle: {fileID: 3678105649317421056}
     barrel: {fileID: 8815362876805308034}

@@ -20,6 +20,7 @@ public class BossScript : MonoBehaviour
 
     [Header("Lasers")]
     [SerializeField] LayerMask laserMask;
+    [SerializeField] int laserDamage;
     [SerializeField] Laser[] lasers;
     float laserDmgCooldown = .05f;
     float lastDmg;
@@ -121,10 +122,10 @@ public class BossScript : MonoBehaviour
         //Raycasts to get hit
         RaycastHit2D hit = Physics2D.Raycast(laser.muzzle.position, laser.muzzle.up, dist, laserMask);
 
-        lastDmg += Time.deltaTime;
+        lastDmg += Time.deltaTime; //Stops damage from being taken every frame
         if (hit && hit.transform.GetComponent<Health>() && lastDmg > laserDmgCooldown)
         {
-            hit.transform.GetComponent<Health>().TakeDamage(5);
+            hit.transform.GetComponent<Health>().TakeDamage(laserDamage);
             lastDmg = 0;
         }
 

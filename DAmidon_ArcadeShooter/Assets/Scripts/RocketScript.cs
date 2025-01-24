@@ -13,7 +13,6 @@ public class RocketScript : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] float explodeDist;
     [SerializeField] float harmDist;
-    [SerializeField] ParticleSystem explosion;
     [SerializeField] Color color;
 
     Rigidbody2D rb;

@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour
             if(IsGrounded())
             {
                 Vector2 currentVel = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(-currentVel);
+                rb.AddForce(-currentVel, ForceMode2D.Impulse);
             }
         }
 
@@ -136,7 +136,7 @@ public class PlayerManager : MonoBehaviour
         explosion_.transform.localScale = transform.localScale;
         ParticleSystem.MainModule main = explosion_.main;
         main.startColor = color;
-        Destroy(explosion_, 2f);
+        Destroy(explosion_.gameObject, 2f);
         rb.velocity = Vector3.zero;
 
         body.SetActive(false);

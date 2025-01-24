@@ -91,7 +91,7 @@ public class Health : MonoBehaviour
         ParticleSystem.MainModule main = explosion_.main;
         main.startColor = color;
 
-        Destroy(explosion_, 2f);
+        Destroy(explosion_.gameObject, 2f);
         Destroy(this.gameObject);
     }
 }

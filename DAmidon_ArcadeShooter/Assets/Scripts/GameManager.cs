@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
         {
             currentBossScore += neededBossScore;
             Instantiate(bossAsset, spawner.GetSpawnPos(), Quaternion.identity);
+            FindFirstObjectByType<CameraFollowScript>().Shake(1);
+            soundManager.PlaySound("Explosion");
         }
     }
 

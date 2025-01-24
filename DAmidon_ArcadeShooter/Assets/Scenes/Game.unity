@@ -2209,6 +2209,9 @@ MonoBehaviour:
   velocityMultiplier: 0.75
   rotShake: 3
   moveShake: 0.15
+  defaultCamZoom: 10
+  camZoomMultiplyer: 0.2
+  camZoomSpeed: 1
 --- !u!114 &519420036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3567,9 +3570,9 @@ MonoBehaviour:
   - {fileID: 1031928929406929649, guid: b4b2e1b94ade3064e8ea1b81c7fe6eda, type: 3}
   - {fileID: 7608397081649720549, guid: b433a79b29afbe54e98a805805da1069, type: 3}
   - {fileID: 1997396947395213615, guid: b29f0661f0f797c4681515791e41756e, type: 3}
-  playerCam: {fileID: 519420032}
   spawnedEnemies: 3
   spawned: 0
+  playerCam: {fileID: 519420032}
   waveTimer: 5
 --- !u!4 &827261414
 Transform:
@@ -4932,7 +4935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100 HP
+  m_text: 200 HP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cd32f4c16f2556743addfad57afe6ee9, type: 2}
   m_sharedMaterial: {fileID: 2598038959547698822, guid: cd32f4c16f2556743addfad57afe6ee9, type: 2}
@@ -14772,9 +14775,9 @@ MonoBehaviour:
   platformSpawn: {fileID: 1094794695961112240, guid: faff1f35518804941982102b8cebac7b, type: 3}
   health: {fileID: 6574904542533558344, guid: 41c49c60f358a26468e4e2c6ffc61c91, type: 3}
   point: {fileID: 2953642590572234424, guid: 4c4bac12e4375d04a88abf3f29a6ec61, type: 3}
-  amount: 250
-  height: 100
-  width: 50
+  amount: 500
+  height: 200
+  width: 100
 --- !u!1 &2077213963
 GameObject:
   m_ObjectHideFlags: 0

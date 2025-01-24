@@ -119,4 +119,13 @@ public class EnemyScript : MonoBehaviour
 
         health.Die(color, "Explosion");
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Take away all health / Die when touching Lava
+        if (collision.transform.CompareTag("Lava"))
+        {
+            health.TakeDamage(health.currentHealth);
+        }
+    }
 }

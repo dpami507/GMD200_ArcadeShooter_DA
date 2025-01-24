@@ -26,6 +26,7 @@ public class RailgunScript : EnemyScript
 
     private void Update()
     {
+        //If has LOS set the LR and bool
         if(HasLOS())
         {
             lineLOS.enabled = true;
@@ -34,7 +35,7 @@ public class RailgunScript : EnemyScript
         }
         else lineLOS.enabled = false;
 
-        //Kill
+        //Die
         if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
             Die();
 

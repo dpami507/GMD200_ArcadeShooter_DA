@@ -8,7 +8,8 @@ public class BulletScript : MonoBehaviour
 
     private void Start()
     {
-        Destroy(this.gameObject, 2);
+        //Destroy to stop lag
+        Destroy(this.gameObject, 5);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,8 +17,6 @@ public class BulletScript : MonoBehaviour
         //Take Damage from collision
         if (collision.GetComponent<Health>())
             collision.GetComponent<Health>().TakeDamage(damage);
-
-        Debug.Log($"Collision with {collision.gameObject.name}");
 
         Destroy(this.gameObject);
     }

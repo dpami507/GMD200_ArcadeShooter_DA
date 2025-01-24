@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         gameOver = false;
         dead = false;
-        UpdateScore(0);
+        UpdateScore(0); //Set score text
 
         startScreen.SetActive(true);
         deathScreen.SetActive(false);

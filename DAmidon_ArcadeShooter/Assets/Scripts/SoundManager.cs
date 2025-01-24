@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public Sound[] sounds;
-    public GameObject source;
+    [SerializeField] Sound[] sounds;
+    [SerializeField] GameObject source;
 
     public void PlaySound(string soundName)
     {

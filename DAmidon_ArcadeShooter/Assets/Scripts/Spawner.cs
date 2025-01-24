@@ -5,11 +5,10 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] GameObject[] enemies;
-
-    [SerializeField] Transform playerCam;
-
     [SerializeField] int spawnedEnemies;
     [SerializeField] int spawned;
+
+    [SerializeField] Transform playerCam;
 
     [SerializeField] float waveTimer;
     float lastSpawned;

@@ -65,12 +65,8 @@ public class RocketScript : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, harmDist);
 
         foreach (var item in colliders)
-        {
             if(item.GetComponent<Health>())
-            {
                 item.GetComponent<Health>().TakeDamage(damage);
-            }
-        }
 
         health.Die(color, "Explosion");
     }

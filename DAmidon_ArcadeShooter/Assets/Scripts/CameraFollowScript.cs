@@ -5,30 +5,30 @@ using UnityEngine;
 public class CameraFollowScript : MonoBehaviour
 {
     [Header("Camera Follow")]
-    public Transform target;
-    public float speedPos;
-    public float speedRot;
-    Vector3 vel = Vector2.zero;
-    public Vector3 offset;
-    public float velocityMultiplier;
+    [SerializeField] Transform target;
+    [SerializeField] float speedPos;
+    [SerializeField] float speedRot;
+    [SerializeField] Vector3 offset;
+    [SerializeField] float velocityMultiplier;
 
     [Header("Caemra Shake")]
-    public float rotShake;
-    public float moveShake;
+    [SerializeField] float rotShake;
+    [SerializeField] float moveShake;
 
+    [Header("Caemra Zoom")]
+    [SerializeField] int defaultCamZoom;
+    [SerializeField] float camZoomMultiplyer;
+    [SerializeField] float camZoomSpeed;
+
+    Vector3 vel = Vector2.zero;
+    float velFloat = 0;
     Rigidbody2D playerRb;
+    Camera thisCam;
 
     private void Start()
     {
         playerRb = target.GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Shake(1);
-        }
+        thisCam = transform.GetComponent<Camera>();
     }
 
     private void FixedUpdate()
@@ -37,18 +37,22 @@ public class CameraFollowScript : MonoBehaviour
         Vector3 velPos = new Vector3(0, playerRb.velocity.y * velocityMultiplier, 0);
         Vector3 desiredPos = target.position + offset + velPos;
 
-        float smoothTime = 1 / (speedPos);
+        //Zoom out with speed;
+        float desiredZoom = defaultCamZoom + (playerRb.velocity.magnitude * camZoomMultiplyer);
+        thisCam.orthographicSize = Mathf.SmoothDamp(thisCam.orthographicSize, desiredZoom, ref velFloat, camZoomSpeed);
 
+        //Smoothly translate and rotate camera to desired setting
+        float smoothTime = 1 / (speedPos);
         transform.position = Vector3.SmoothDamp(transform.position, desiredPos, ref vel, smoothTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, speedRot * Time.deltaTime);
     }
 
+    //Camera Shake
     public void Shake(float intensity)
     {
         //Pos
         float sideX = (Random.Range(0, 2) == 0) ? 1 : -1;
         float sideY = (Random.Range(0, 2) == 0) ? 1 : -1;
-
         float move = moveShake * intensity;
         move = Mathf.Min(move, 10); //Keep position within 5
         Vector3 newPos = new Vector3(move * sideX, move * sideY, 0) + transform.position;

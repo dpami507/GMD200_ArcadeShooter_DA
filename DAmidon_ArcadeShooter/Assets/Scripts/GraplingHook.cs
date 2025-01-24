@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GraplingHook : MonoBehaviour
 {
-    public Transform point;
+    [SerializeField] Transform point;
     [SerializeField] Transform closestPoint;
-    public float searchDist;
+    [SerializeField] float searchDist;
 
-    public bool isGrappling;
+    [SerializeField] bool isGrappling;
     LineRenderer lineRenderer;
     SpringJoint2D springJoint;
 
-    public LayerMask points;
+    [SerializeField] LayerMask points;
     GameManager manager;
 
     private void Start()
@@ -68,8 +68,10 @@ public class GraplingHook : MonoBehaviour
 
         isGrappling = true;
 
+        //Set Point
         Vector3 closestPos = closestPoint.position;
 
+        //Start Spring and Line Render and set it up
         springJoint.enabled = true;
         lineRenderer.enabled = true;
 
@@ -85,6 +87,7 @@ public class GraplingHook : MonoBehaviour
 
     void StopGrapple()
     {
+        //Disable all grapple stuff
         springJoint.enabled = false;
         lineRenderer.enabled = false;
         isGrappling = false;

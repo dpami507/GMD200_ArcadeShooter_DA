@@ -44,9 +44,7 @@ public class PlayerManager : MonoBehaviour
         RotateAndStrechTowardVel();
 
         if(health.currentHealth <= 0)
-        {
             Die();
-        }
     }
 
     private void FixedUpdate()
@@ -64,7 +62,7 @@ public class PlayerManager : MonoBehaviour
 
         //Stretch
         float rbMag = Mathf.Abs(rb.velocity.magnitude);
-        float shrinkFactor = 0.1f;
+        float shrinkFactor = 0.05f;
         float yScale = Mathf.Max(0.5f, 1 - (rbMag * shrinkFactor));
         Vector2 scale = new Vector2(1, yScale);
 
@@ -148,15 +146,9 @@ public class PlayerManager : MonoBehaviour
     {
         if(collision.GetComponent<EnemyScript>() && rb.velocity.magnitude > 16)
         {
-            Debug.Log(rb.velocity.magnitude);
-
-            ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
-            explosion_.transform.localScale = transform.localScale;
-            ParticleSystem.MainModule main = explosion_.main;
-            main.startColor = color;
-            Destroy(explosion_, 2f);
-
-            collision.GetComponent<Health>().TakeDamage(5);
+            //The faster you go the more damage you do
+            int damage = Mathf.RoundToInt(rb.velocity.magnitude / 5);
+            collision.GetComponent<Health>().TakeDamage(damage);
         }
     }
 

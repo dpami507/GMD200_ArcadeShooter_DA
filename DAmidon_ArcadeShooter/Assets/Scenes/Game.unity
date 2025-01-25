@@ -7318,7 +7318,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   groundCheck: {fileID: 1858178587}
-  groundCheckSize: {x: 0.25, y: 0.01}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

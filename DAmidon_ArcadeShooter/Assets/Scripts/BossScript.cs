@@ -112,10 +112,15 @@ public class BossScript : MonoBehaviour
     #region Lasers
     void StartLasers(Laser laser, float dist)
     {
-        //Set Enabled
-        laser.lineRenderer.enabled = true;
-        laser.hitParticle.Play();
-        laser.laserSound.Play();
+        if (!laser.active)
+        {
+            //Set Enabled
+            laser.lineRenderer.enabled = true;
+            laser.hitParticle.Play();
+
+            laser.laserSound.Play();
+            laser.active = true;
+        }
 
         //Set LR start points
         laser.lineRenderer.SetPosition(0, laser.muzzle.position);
@@ -156,6 +161,7 @@ public class BossScript : MonoBehaviour
     void StopLasers(Laser laser)
     {
         //Stop visuals
+        laser.active = false;
         laser.lineRenderer.enabled = false;
         laser.hitParticle.Stop();
         laser.laserSound.Stop();
@@ -207,6 +213,7 @@ public class BossScript : MonoBehaviour
 [System.Serializable]
 public class Laser
 {
+    public bool active;
     public AudioSource laserSound;
     public Transform muzzle;
     public Transform barrel;

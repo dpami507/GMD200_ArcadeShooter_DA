@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Follows and explodes on shot or distance to player
 public class RocketScript : MonoBehaviour
 {
     [Header("Movement")]
@@ -67,6 +68,6 @@ public class RocketScript : MonoBehaviour
             if(item.GetComponent<Health>())
                 item.GetComponent<Health>().TakeDamage(damage);
 
-        health.Die(color, "Explosion");
+        health.Die("Explosion");
     }
 }

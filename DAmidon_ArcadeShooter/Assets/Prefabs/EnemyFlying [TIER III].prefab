@@ -262,22 +262,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   rotSpeed: 3
+  muzzle: {fileID: 6885700833592863636}
+  scoreWorth: 100
+  scoreTxt: {fileID: 2199067105606363328, guid: e8ef133dae5396a44bf408390c432228, type: 3}
+  rb: {fileID: 0}
+  health: {fileID: 0}
   speed: 4
   lerpSpeed: 2
   moveDist: 4
-  muzzle: {fileID: 6885700833592863636}
   bullet: {fileID: 3306218758892356751, guid: f69707cbc4d2a594fa2a04f6b3474e62, type: 3}
   bulletSpeed: 7.5
   bulletSize: 0.5
   firingAngle: 15
   damage: 5
-  canFire: 0
   shotsPerSecond: 1
-  lastShot: 0
   color: {r: 1, g: 0, b: 0, a: 1}
-  sprite: {fileID: 2901398751390873953}
-  scoreWorth: 100
-  health: {fileID: 0}
 --- !u!50 &4442068423869957430
 Rigidbody2D:
   serializedVersion: 4
@@ -362,13 +361,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 15
   currentHealth: 0
+  displayedPercent: 0
   canvas: {fileID: 5358624527450714502}
   healthBar: {fileID: 7200627239928888107}
   healthBarSpeed: 10
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
-  isPlayer: 0
-  healthBarTransSpeed: 0
-  rotAmount: 0
+  color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!96 &2076132925198893550
 TrailRenderer:
   serializedVersion: 3

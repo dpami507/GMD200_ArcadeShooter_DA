@@ -3,40 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Deals with damage and helth for all entities
 public class Health : MonoBehaviour
 {
     [Header("Logic")]
     public int maxHealth;
     public int currentHealth;
-    float displayedPercent;
+    public float displayedPercent;
 
     [Header("Canvas Stuff")]
-    [SerializeField] Transform canvas;
-    [SerializeField] Image healthBar;
-    [SerializeField] float healthBarSpeed;
+    public Transform canvas;
+    public Image healthBar;
+    public float healthBarSpeed;
 
     [Header("Death")]
     [SerializeField] ParticleSystem explosion;
-
-    [Header("Just Player")]
-    public bool isPlayer;
-    Transform healthBarTrans;
-    [SerializeField] float healthBarTransSpeed;
-    [SerializeField] float rotAmount;
-    float scale;
+    [SerializeField] Color color;
 
     void Start()
     {
         //Set bar
         currentHealth = maxHealth;
         displayedPercent = currentHealth;
-
-        //isPlayer?
-        isPlayer = GetComponent<PlayerManager>();
-
-        //SetHealthBar
-        if (healthBar != null)
-            healthBarTrans = healthBar.transform.parent;
     }
 
     void Update()
@@ -52,36 +40,18 @@ public class Health : MonoBehaviour
 
         //Lerp for smoooooothness
         displayedPercent = Mathf.Lerp(displayedPercent, currentHealth, healthBarSpeed * Time.deltaTime);
-        if (isPlayer)
-        {
-            healthBarTrans.localScale = Vector3.Lerp(healthBarTrans.localScale, Vector3.one, healthBarTransSpeed * Time.deltaTime);
-            healthBarTrans.rotation = Quaternion.Lerp(healthBarTrans.rotation, Quaternion.identity, healthBarTransSpeed * Time.deltaTime);
-        }
 
         //Update Bar
         healthBar.fillAmount = displayedPercent / maxHealth;
     }
 
     //owchie
-    public void TakeDamage(int value)
+    public virtual void TakeDamage(int value)
     {
         currentHealth -= value;
-
-
-        if (isPlayer)
-        {
-            scale *= 1.05f;
-            scale = Mathf.Clamp(scale, 1, 1.25f);
-            healthBarTrans.localScale = Vector3.one * scale;
-
-            float angle = Random.Range(-rotAmount, rotAmount);
-            healthBarTrans.rotation = Quaternion.Euler(0, 0, angle);
-
-            FindFirstObjectByType<CameraFollowScript>().Shake((float)value / 10);
-        }
     }
 
-    public void Die(Color color, string sound)
+    public void Die(string sound)
     {
         FindFirstObjectByType<SoundManager>().PlaySound(sound);
 

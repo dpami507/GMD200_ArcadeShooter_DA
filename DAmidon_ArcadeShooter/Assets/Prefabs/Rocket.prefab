@@ -139,7 +139,6 @@ MonoBehaviour:
   damage: 2
   explodeDist: 1
   harmDist: 2
-  explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
   color: {r: 1, g: 0, b: 0.5019608, a: 1}
   launcher: {fileID: 0}
 --- !u!114 &7342720430571740911
@@ -160,6 +159,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   healthBarSpeed: 0
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
+  color: {r: 1, g: 0, b: 0.5019608, a: 1}
   isPlayer: 0
   healthBarTransSpeed: 0
   rotAmount: 0

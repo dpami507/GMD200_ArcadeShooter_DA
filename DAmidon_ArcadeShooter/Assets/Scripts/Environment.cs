@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Deals with Environmental Objects, like starting playform falling, keeping the lava under the player, and spawning grapple points and other objects
 public class Environment : MonoBehaviour
 {
     [Header("Starting Platform")]

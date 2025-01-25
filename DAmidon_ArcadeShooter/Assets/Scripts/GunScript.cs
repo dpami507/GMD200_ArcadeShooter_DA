@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script that shoots bullets for the player
 public class GunScript : MonoBehaviour
 {
     [SerializeField] Transform muzzle;

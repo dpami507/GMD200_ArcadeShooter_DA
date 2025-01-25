@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script for the bullet to clean up if it hasn't hit anything and take away damage when it does
 public class BulletScript : MonoBehaviour
 {
     public int damage;

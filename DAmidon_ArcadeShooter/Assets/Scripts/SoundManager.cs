@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Sound Manager for playing a variety of sounds
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] Sound[] sounds;

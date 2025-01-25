@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
+//Toggles through Enemys in Help menu
 public class EnemyToggleScript : MonoBehaviour
 {
     [SerializeField] GameObject[] items;

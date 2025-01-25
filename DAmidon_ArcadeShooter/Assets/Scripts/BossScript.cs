@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Script for Boss that is spawned every 2500 points. This boss can fire lasers and shoot rockets at the player
 public class BossScript : MonoBehaviour
 {
     [Header("Boss")]
     [SerializeField] int scoreWorth;
-    [SerializeField] Color color;
 
     [Header("Movement")]
     [SerializeField] Transform target;
@@ -22,8 +22,8 @@ public class BossScript : MonoBehaviour
     [SerializeField] LayerMask laserMask;
     [SerializeField] int laserDamage;
     [SerializeField] Laser[] lasers;
-    float laserDmgCooldown = .05f;
-    float lastDmg;
+    float laserDmgCooldown = 0.05f;
+    float lastLsrDmg;
 
     [Header("Rockets")]
     [SerializeField] GameObject rocket;
@@ -115,6 +115,7 @@ public class BossScript : MonoBehaviour
         //Set Enabled
         laser.lineRenderer.enabled = true;
         laser.hitParticle.Play();
+        laser.laserSound.Play();
 
         //Set LR start points
         laser.lineRenderer.SetPosition(0, laser.muzzle.position);
@@ -122,11 +123,12 @@ public class BossScript : MonoBehaviour
         //Raycasts to get hit
         RaycastHit2D hit = Physics2D.Raycast(laser.muzzle.position, laser.muzzle.up, dist, laserMask);
 
-        lastDmg += Time.deltaTime; //Stops damage from being taken every frame
-        if (hit && hit.transform.GetComponent<Health>() && lastDmg > laserDmgCooldown)
+        lastLsrDmg += Time.deltaTime; //Stops damage from being taken every frame
+        if (hit && hit.transform.GetComponent<Health>() && lastLsrDmg > laserDmgCooldown)
         {
+            FindFirstObjectByType<CameraFollowScript>().Shake();
             hit.transform.GetComponent<Health>().TakeDamage(laserDamage);
-            lastDmg = 0;
+            lastLsrDmg = 0;
         }
 
         //Set end point
@@ -156,6 +158,7 @@ public class BossScript : MonoBehaviour
         //Stop visuals
         laser.lineRenderer.enabled = false;
         laser.hitParticle.Stop();
+        laser.laserSound.Stop();
     }
     #endregion
 
@@ -197,13 +200,14 @@ public class BossScript : MonoBehaviour
         if (!FindFirstObjectByType<GameManager>().dead)
             FindFirstObjectByType<GameManager>().UpdateScore(scoreWorth);
 
-        health.Die(color, "Explosion");
+        health.Die("Explosion");
     }
 }
 
 [System.Serializable]
 public class Laser
 {
+    public AudioSource laserSound;
     public Transform muzzle;
     public Transform barrel;
     public ParticleSystem hitParticle;

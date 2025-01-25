@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+//Deals with lots of variables and info multiple objects rely on like player states and menus
 public class GameManager : MonoBehaviour
 {
     [Header("Score")]

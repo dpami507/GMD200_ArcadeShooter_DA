@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Deals with player aiming, moving, stretching and death
 public class PlayerManager : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float speed;
-    Rigidbody2D rb;
     [SerializeField] Transform groundCheck;
-    [SerializeField] Vector2 groundCheckSize;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float jumpForce;
     [SerializeField] float extraGravity;
+    Rigidbody2D rb;
     float jumpCooldown;
 
     [Header("Hands")]
@@ -73,10 +73,12 @@ public class PlayerManager : MonoBehaviour
     //Mooove
     void Move()
     {
-        //Add Force
+        //Get Input
         float x = Input.GetAxisRaw("Horizontal") * speed;
 
-        if (x > .01f || x < -.01f)
+        //AddForce Movement used as setting velocity destroys the grappling hook and that was bad
+
+        if (x > .01f || x < -.01f) //Input detected
         {
             Vector2 vel = new Vector2(x, 0);
             rb.AddForce(vel, ForceMode2D.Impulse);
@@ -85,12 +87,12 @@ public class PlayerManager : MonoBehaviour
             Vector2 currentVel = new Vector2(rb.velocity.x, 0);
             rb.AddForce(-currentVel / 8, ForceMode2D.Impulse);
         }
-        else if(rb.velocity.x > .01f || rb.velocity.x < -.01f)
+        else if(rb.velocity.x > .01f || rb.velocity.x < -.01f) //Still Moving
         {
-            if(IsGrounded())
+            if(IsGrounded()) //And Grounded
             {
                 Vector2 currentVel = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(-currentVel, ForceMode2D.Impulse);
+                rb.AddForce(-currentVel / 4, ForceMode2D.Impulse);
             }
         }
 
@@ -144,7 +146,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<EnemyScript>() && rb.velocity.magnitude > 16)
+        if(collision.GetComponent<EnemyBaseScript>() && rb.velocity.magnitude > 16)
         {
             //The faster you go the more damage you do
             int damage = Mathf.RoundToInt(rb.velocity.magnitude / 5);

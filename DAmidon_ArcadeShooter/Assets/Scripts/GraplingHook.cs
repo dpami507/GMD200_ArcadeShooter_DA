@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Starts and Stops Grappling Hook and sets visuals and spring
 public class GraplingHook : MonoBehaviour
 {
     [SerializeField] Transform point;
@@ -44,10 +45,10 @@ public class GraplingHook : MonoBehaviour
             if (closestPoint == null)
                 point.gameObject.SetActive(false);
             else point.gameObject.SetActive(true);
-
-            if(closestPoint) //Set visual to closest point to mouse
-                point.position = closestPoint.position;
         }
+
+        if (closestPoint) //Set visual to closest point to mouse
+            point.position = closestPoint.position;
 
         //If click and there is a point then grapple
         if (Input.GetMouseButton(1) && closestPoint)
@@ -81,7 +82,6 @@ public class GraplingHook : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, closestPos);
 
-        point.position = closestPos;
         point.gameObject.SetActive(true);
     }
 

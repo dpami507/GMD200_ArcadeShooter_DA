@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Camera follow script that zooms out based on speed, smoothly follows the player, and trails ahead when fast
 public class CameraFollowScript : MonoBehaviour
 {
     [Header("Camera Follow")]
@@ -48,7 +49,7 @@ public class CameraFollowScript : MonoBehaviour
     }
 
     //Camera Shake
-    public void Shake(float intensity)
+    public void Shake(float intensity = 1)
     {
         //Pos
         float sideX = (Random.Range(0, 2) == 0) ? 1 : -1;

@@ -145,3 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
   color: {r: 1, g: 0.38823533, b: 0.38823533, a: 1}
+  speed: 5
+  minSpeed: 3
+  radius: 3
+  collectDist: 1

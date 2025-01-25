@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Spawns enemies and calculates weights and chance for certain enemeis
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] GameObject[] enemies;
+    [SerializeField] Enemy[] enemies;
     [SerializeField] int spawnedEnemies;
+    [SerializeField] int maxSpawned;
     [SerializeField] int spawned;
+
+    float totalWeight;
 
     [SerializeField] Transform playerCam;
 
@@ -17,6 +21,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        CalculateTotalWeight(); //Calculate total weight of all objects
         manager = FindFirstObjectByType<GameManager>();
     }
 
@@ -24,7 +29,7 @@ public class Spawner : MonoBehaviour
     {
         if(!manager.gameStarted) { return; }
 
-        spawned = FindObjectsOfType<EnemyScript>().Length + FindObjectsOfType<RailgunScript>().Length;
+        spawned = FindObjectsOfType<EnemyBaseScript>().Length;
 
         //Spawn logic
         lastSpawned += Time.deltaTime;
@@ -40,11 +45,12 @@ public class Spawner : MonoBehaviour
         for(int i = 0; i < spawnedEnemies; i++)
         {
             //Dont spawn if there are more than 7 enemies
-            if (spawned <= 7)
+            if (spawned <= maxSpawned)
             {
                 Vector2 spawnPos = GetSpawnPos();
 
-                Instantiate(enemies[Random.Range(0, enemies.Length)], spawnPos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                //Spawn Chosen Enemy
+                Instantiate(RandomEnemy(), spawnPos, Quaternion.identity);
             }
         }
     }
@@ -64,4 +70,42 @@ public class Spawner : MonoBehaviour
         //Return pos
         return spawnPos;
     }
+
+    //ChatGPT was a real one for givig me this
+    void CalculateTotalWeight()
+    {
+        totalWeight = 0;
+        foreach (Enemy enemy in enemies)
+        {
+            totalWeight += enemy.spawnChance;
+        }
+    }
+
+    //ChatGPT was a real one for givig me this
+    GameObject RandomEnemy()
+    {
+        float rand = Random.Range(0, totalWeight);
+        float cumulativeWeight = 0;
+
+        foreach (Enemy enemy in enemies)
+        {
+            cumulativeWeight += enemy.spawnChance;
+            if (rand <= cumulativeWeight)
+            {
+                return enemy.enemyObj;
+            }
+        }
+
+        Debug.LogWarning("Ya, set it up wrong bucko :/");
+        return null;
+    }
+}
+
+[System.Serializable]
+public class Enemy 
+{
+    public GameObject enemyObj;
+
+    [Range(0, 100)]
+    public int spawnChance;
 }

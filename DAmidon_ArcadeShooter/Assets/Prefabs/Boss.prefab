@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 2031005927921128757}
   - component: {fileID: 1480573959461159414}
   - component: {fileID: 7843074111372568585}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,8 @@ MonoBehaviour:
     m_Bits: 520
   laserDamage: 2
   lasers:
-  - laserSound: {fileID: 1480573959461159414}
+  - active: 0
+    laserSound: {fileID: 1480573959461159414}
     muzzle: {fileID: 3678105649317421056}
     barrel: {fileID: 8815362876805308034}
     hitParticle: {fileID: 5930665755015470469}
@@ -545,7 +546,8 @@ MonoBehaviour:
     amp: 20
     freq: 2
     dir: 1
-  - laserSound: {fileID: 7843074111372568585}
+  - active: 0
+    laserSound: {fileID: 7843074111372568585}
     muzzle: {fileID: 7355142475793666936}
     barrel: {fileID: 2233579626570719913}
     hitParticle: {fileID: 5789813831820041208}
@@ -663,7 +665,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 82a1c5f50263545469a60a0b84729e5c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 0.9
   Loop: 0
   Mute: 0
@@ -759,7 +761,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 82a1c5f50263545469a60a0b84729e5c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1.1
   Loop: 0
   Mute: 0

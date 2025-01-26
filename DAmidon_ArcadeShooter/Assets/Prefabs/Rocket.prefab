@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 152066245243176738}
   - component: {fileID: 1410020320550751929}
   - component: {fileID: 5980144105782387429}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,14 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   currentHealth: 0
+  displayedPercent: 0
   canvas: {fileID: 0}
   healthBar: {fileID: 0}
   healthBarSpeed: 0
   explosion: {fileID: 8641825462898750017, guid: 707c43bef52586f46b3887e4bc2670eb, type: 3}
   color: {r: 1, g: 0, b: 0.5019608, a: 1}
-  isPlayer: 0
-  healthBarTransSpeed: 0
-  rotAmount: 0
 --- !u!50 &152066245243176738
 Rigidbody2D:
   serializedVersion: 4

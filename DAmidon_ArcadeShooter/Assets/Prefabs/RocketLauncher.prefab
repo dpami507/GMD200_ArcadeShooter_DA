@@ -5505,7 +5505,7 @@ GameObject:
   - component: {fileID: 6000016442999551413}
   - component: {fileID: 7126725601444204796}
   - component: {fileID: 8535999499303036568}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RocketLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}

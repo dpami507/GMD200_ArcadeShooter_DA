@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //Deals with lots of variables and info multiple objects rely on like player states and menus
 public class GameManager : MonoBehaviour
 {
+    [Header("Input")]
+    public bool hasMouse;
+    [SerializeField] Toggle mouseToggle;
+
     [Header("Score")]
     [SerializeField] TMP_Text scoreTxt;
     [SerializeField] int score;
@@ -25,6 +30,8 @@ public class GameManager : MonoBehaviour
     [Header("Canvas UI Stuff")]
     [SerializeField] GameObject startScreen;
     [SerializeField] GameObject H2PScreen;
+    [SerializeField] GameObject H2PTxtMouse;
+    [SerializeField] GameObject H2PTxtNoMouse;
 
     [SerializeField] GameObject deathScreen;
     [SerializeField] TMP_Text deathScore;
@@ -51,8 +58,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Mouse Stuff
+        hasMouse = mouseToggle.isOn;
+        if (hasMouse)
+        {
+            H2PTxtMouse.SetActive(true);
+            H2PTxtNoMouse.SetActive(false);
+        }
+        else
+        {
+            H2PTxtNoMouse.SetActive(true);
+            H2PTxtMouse.SetActive(false);
+        }
+
         //If player is dead set gameOver and do the stuff
-        if(dead && !gameOver)
+        if (dead && !gameOver)
         {
             gameOver = true;
             deathScreen.SetActive(true);

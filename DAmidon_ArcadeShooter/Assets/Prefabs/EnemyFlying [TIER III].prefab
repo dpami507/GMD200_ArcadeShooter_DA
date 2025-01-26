@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 3469296053425946501}
   - component: {fileID: 3675014678479827714}
   - component: {fileID: 2076132925198893550}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyFlying [TIER III]
   m_TagString: Untagged
   m_Icon: {fileID: 0}

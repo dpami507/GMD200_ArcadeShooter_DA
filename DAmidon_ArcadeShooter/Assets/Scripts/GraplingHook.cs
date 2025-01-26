@@ -16,9 +16,12 @@ public class GraplingHook : MonoBehaviour
     [SerializeField] LayerMask points;
     GameManager manager;
 
+    Rigidbody2D playerRb;
+
     private void Start()
     {
         manager = FindFirstObjectByType<GameManager>();
+        playerRb = GetComponent<Rigidbody2D>();
 
         springJoint = GetComponent<SpringJoint2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -51,7 +54,7 @@ public class GraplingHook : MonoBehaviour
             point.position = closestPoint.position;
 
         //If click and there is a point then grapple
-        if (Input.GetMouseButton(1) && closestPoint)
+        if (Input.GetButton("Fire2") && closestPoint)
         {
             StartGrapple();
         }
@@ -96,9 +99,17 @@ public class GraplingHook : MonoBehaviour
     //Get closest point to grapple
     void SetClosest()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Set noMouse
+        Vector3 vel = playerRb.velocity.normalized;
+        Vector2 noMousePos = transform.position + vel * 10;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(mousePos, searchDist, points);
+        //Change point of interest based on if player has a mouse
+        Vector2 searchPos;
+        if (manager.hasMouse)
+            searchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        else searchPos = new Vector2(noMousePos.x, transform.position.y + 5);
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(searchPos, searchDist, points);
 
         if (colliders.Length <= 0)
         {
@@ -115,8 +126,8 @@ public class GraplingHook : MonoBehaviour
             }
             else
             {
-                float pointDist = Vector2.Distance(collider.transform.position, mousePos);
-                float currentDist = Vector2.Distance(closestPoint.position, mousePos);
+                float pointDist = Vector2.Distance(collider.transform.position, searchPos);
+                float currentDist = Vector2.Distance(closestPoint.position, searchPos);
 
                 if (pointDist < currentDist)
                 {

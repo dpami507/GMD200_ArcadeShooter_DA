@@ -16,6 +16,9 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Hands")]
     [SerializeField] Transform handPivot;
+    [SerializeField] Transform nearest;
+    [SerializeField] int searchRadius;
+    [SerializeField] LayerMask enemyMask;
 
     [Header("Death Stuff")]
     [SerializeField] ParticleSystem explosion;
@@ -40,7 +43,11 @@ public class PlayerManager : MonoBehaviour
     {
         if(manager.dead || !manager.gameStarted) { return; }
 
-        FaceCursor();
+        if (manager.hasMouse)
+            FaceTarget(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        else
+            FaceTarget(GetClosestTarget());
+
         RotateAndStrechTowardVel();
 
         if(health.currentHealth <= 0)
@@ -109,18 +116,48 @@ public class PlayerManager : MonoBehaviour
     }
 
     //Face Cursor
-    void FaceCursor()
+    void FaceTarget(Vector2 pos)
     {
-        //Get Mouse Pos
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         //Calculate Angle
-        float x = mousePos.x - transform.position.x;
-        float y = mousePos.y - transform.position.y;
+        float x = pos.x - transform.position.x;
+        float y = pos.y - transform.position.y;
         float angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
 
         //Rotate
         handPivot.rotation = Quaternion.Euler(0, 0, angle - 90);
+    }
+
+    //Used for no mouse players
+    Vector2 GetClosestTarget()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, searchRadius, enemyMask);
+
+        if (colliders.Length <= 0)
+        {
+            return rb.velocity;
+        }
+
+        GameObject closestPos = null;
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (closestPos == null)
+            {
+                closestPos = collider.gameObject;
+            }
+            else
+            {
+                float pointDist = Vector2.Distance(collider.transform.position, transform.position);
+                float currentDist = Vector2.Distance(closestPos.transform.position, transform.position);
+
+                if (pointDist < currentDist)
+                {
+                    closestPos = collider.gameObject;
+                }
+            }
+        }
+
+        return closestPos.transform.position;
     }
 
     //Check if grounded

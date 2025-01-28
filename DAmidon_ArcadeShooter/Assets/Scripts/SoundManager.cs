@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 //Sound Manager for playing a variety of sounds
@@ -7,6 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] Sound[] sounds;
     [SerializeField] GameObject source;
+    [SerializeField] Slider soundSlider;
 
     public void PlaySound(string soundName)
     {
@@ -21,7 +23,7 @@ public class SoundManager : MonoBehaviour
 
                 //Set clip, volume, random pitch, and play
                 audioSource.clip = sound.clip;
-                audioSource.volume = sound.volume;
+                audioSource.volume = sound.volume * soundSlider.value;
 
                 //Makes sounds slightly less annoying
                 float pitch = Random.Range(sound.pitch.x, sound.pitch.y);

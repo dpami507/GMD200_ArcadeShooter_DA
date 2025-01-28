@@ -43,10 +43,7 @@ public class PlayerManager : MonoBehaviour
     {
         if(manager.dead || !manager.gameStarted) { return; }
 
-        if (manager.hasMouse)
-            FaceTarget(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        else
-            FaceTarget(GetClosestTarget());
+        FaceTarget(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
         RotateAndStrechTowardVel();
 
@@ -107,6 +104,7 @@ public class PlayerManager : MonoBehaviour
         rb.AddForce(Vector2.down * extraGravity);
 
         jumpCooldown += Time.deltaTime; //Stops lots of Jump SFX being spawned
+
         if(Input.GetButton("Jump") && IsGrounded() && jumpCooldown > 0.1f)
         {
             jumpCooldown = 0;

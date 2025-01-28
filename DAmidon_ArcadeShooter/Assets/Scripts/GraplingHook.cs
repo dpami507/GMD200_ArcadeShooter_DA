@@ -53,7 +53,6 @@ public class GraplingHook : MonoBehaviour
         if (closestPoint) //Set visual to closest point to mouse
             point.position = closestPoint.position;
 
-        //If click and there is a point then grapple
         if (Input.GetButton("Fire2") && closestPoint)
         {
             StartGrapple();
@@ -101,13 +100,9 @@ public class GraplingHook : MonoBehaviour
     {
         //Set noMouse
         Vector3 vel = playerRb.velocity.normalized;
-        Vector2 noMousePos = transform.position + vel * 10;
 
         //Change point of interest based on if player has a mouse
-        Vector2 searchPos;
-        if (manager.hasMouse)
-            searchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        else searchPos = new Vector2(noMousePos.x, transform.position.y + 5);
+        Vector2 searchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(searchPos, searchDist, points);
 

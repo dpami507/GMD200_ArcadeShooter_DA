@@ -118,6 +118,7 @@ public class BossScript : MonoBehaviour
             laser.lineRenderer.enabled = true;
             laser.hitParticle.Play();
 
+            laser.laserSound.volume *= FindFirstObjectByType<SoundManager>().soundSlider.value;
             laser.laserSound.Play();
             laser.active = true;
         }

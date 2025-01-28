@@ -72,6 +72,7 @@ public class LaserEnemy : EnemyBaseScript
 
     IEnumerator StartLaser()
     {
+        laserSound.volume *= FindFirstObjectByType<SoundManager>().soundSlider.value;
         laserSound.Play();
         laserRender.enabled = true;
         hitParticle.Play();

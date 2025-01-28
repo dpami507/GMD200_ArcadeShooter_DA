@@ -45,11 +45,12 @@ public class EnemyBaseScript : MonoBehaviour
     {
         //Make sure isnt dead then add points
         if (!FindFirstObjectByType<GameManager>().dead)
+        {
             FindFirstObjectByType<GameManager>().UpdateScore(scoreWorth);
-
-        GameObject scoreTxt_ = Instantiate(scoreTxt, transform.position, Quaternion.identity);
-        scoreTxt_.GetComponentInChildren<TMPro.TMP_Text>().text = scoreWorth.ToString();
-        Destroy(scoreTxt_, 1f);
+            GameObject scoreTxt_ = Instantiate(scoreTxt, transform.position, Quaternion.identity);
+            scoreTxt_.GetComponentInChildren<TMPro.TMP_Text>().text = scoreWorth.ToString();
+            Destroy(scoreTxt_, 1f);
+        }
 
         health.Die("Explosion");
     }

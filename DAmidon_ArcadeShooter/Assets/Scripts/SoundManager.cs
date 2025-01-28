@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] Sound[] sounds;
     [SerializeField] GameObject source;
-    [SerializeField] Slider soundSlider;
+    public Slider soundSlider;
 
     public void PlaySound(string soundName)
     {

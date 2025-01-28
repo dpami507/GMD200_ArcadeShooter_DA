@@ -181,10 +181,10 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<EnemyBaseScript>() && rb.velocity.magnitude > 16)
+        if(collision.GetComponent<EnemyBaseScript>())
         {
             //The faster you go the more damage you do
-            int damage = Mathf.RoundToInt(rb.velocity.magnitude / 5);
+            int damage = Mathf.RoundToInt(rb.velocity.magnitude / 4);
             collision.GetComponent<Health>().TakeDamage(damage);
         }
     }

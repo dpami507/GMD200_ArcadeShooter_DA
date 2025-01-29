@@ -9,7 +9,7 @@ public class GraplingHook : MonoBehaviour
     [SerializeField] Transform closestPoint;
     [SerializeField] float searchDist;
 
-    [SerializeField] bool isGrappling;
+    public bool isGrappling;
     LineRenderer lineRenderer;
     SpringJoint2D springJoint;
 

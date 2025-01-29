@@ -54,4 +54,12 @@ public class EnemyBaseScript : MonoBehaviour
 
         health.Die("Explosion");
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Lava"))
+        {
+            Die();
+        }
+    }
 }

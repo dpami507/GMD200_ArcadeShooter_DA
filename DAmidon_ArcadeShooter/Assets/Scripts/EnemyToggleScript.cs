@@ -35,5 +35,6 @@ public class EnemyToggleScript : MonoBehaviour
             item.SetActive(false);
 
         items[index].SetActive(true);
+        SoundManager.FindFirstObjectByType<SoundManager>().PlaySound("Select");
     }
 }

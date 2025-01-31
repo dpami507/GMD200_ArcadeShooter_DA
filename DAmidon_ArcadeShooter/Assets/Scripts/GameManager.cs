@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 //Deals with lots of variables and info multiple objects rely on like player states and menus
 public class GameManager : MonoBehaviour
@@ -30,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject deathScreen;
     [SerializeField] TMP_Text deathScore;
     [SerializeField] string[] deathMsgs;
-    [SerializeField] TMP_Text deathMsg;
+    [SerializeField] TMP_Text deathMsgTxt;
 
     Spawner spawner;
     SoundManager soundManager;
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             gameOver = true;
             deathScreen.SetActive(true);
-            deathMsg.text = deathMsgs[Random.Range(0, deathMsgs.Length)];
+            deathMsgTxt.text = deathMsgs[Random.Range(0, deathMsgs.Length)];
             deathScore.text = "Score: " + score.ToString();
         }
 

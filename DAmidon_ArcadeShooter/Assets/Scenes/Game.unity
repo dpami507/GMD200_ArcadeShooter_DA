@@ -13863,7 +13863,7 @@ MonoBehaviour:
   - zoinks
   - Not your best
   - Me > You
-  deathMsg: {fileID: 1737998931}
+  deathMsgTxt: {fileID: 1737998931}
 --- !u!4 &1484583999
 Transform:
   m_ObjectHideFlags: 0

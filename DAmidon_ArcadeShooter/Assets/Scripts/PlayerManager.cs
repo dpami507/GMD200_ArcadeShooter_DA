@@ -80,9 +80,8 @@ public class PlayerManager : MonoBehaviour
         //Get Input
         float x = Input.GetAxisRaw("Horizontal") * speed;
 
-        //AddForce Movement used as setting velocity destroys the grappling hook and that was bad
-
-        if (x > .01f || x < -.01f) //Input detected
+        //AddForce Movement used as setting velocity destroys the grappling hook and that was bad >:(
+        if (Mathf.Abs(x) > .01f) //Input detected
         {
             Vector2 vel = new Vector2(x, 0);
             rb.AddForce(vel, ForceMode2D.Impulse);
@@ -91,7 +90,7 @@ public class PlayerManager : MonoBehaviour
             Vector2 currentVel = new Vector2(rb.velocity.x, 0);
             rb.AddForce(-currentVel / 8, ForceMode2D.Impulse);
         }
-        else if(rb.velocity.x > .01f || rb.velocity.x < -.01f) //Still Moving
+        else if(Mathf.Abs(rb.velocity.x) > .01f) //Still Moving
         {
             if(IsGrounded()) //And Grounded
             {

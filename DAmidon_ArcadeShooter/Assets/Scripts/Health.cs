@@ -53,7 +53,7 @@ public class Health : MonoBehaviour
 
     public void Die(string sound)
     {
-        FindFirstObjectByType<SoundManager>().PlaySound(sound);
+        SoundManager.instance.PlaySound(sound);
 
         ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
         explosion_.transform.localScale = transform.localScale;

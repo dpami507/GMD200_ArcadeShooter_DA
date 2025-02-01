@@ -40,7 +40,7 @@ public class RocketLauncher : EnemyBaseScript
         else lineLOS.enabled = false;
 
         //Die
-        if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
+        if (health.currentHealth <= 0 || GameManager.instance.dead)
             Die();
 
         //Rotate to Target
@@ -68,7 +68,7 @@ public class RocketLauncher : EnemyBaseScript
     {
         //Fire Rocket
         firePart.Play();
-        FindFirstObjectByType<SoundManager>().PlaySound("RocketLaunch");
+        SoundManager.instance.PlaySound("RocketLaunch");
         GameObject ro = Instantiate(rocket, muzzle.position, muzzle.rotation);
         ro.GetComponent<RocketScript>().launcher = this.gameObject;
         firing = false;

@@ -14,15 +14,12 @@ public class GraplingHook : MonoBehaviour
     SpringJoint2D springJoint;
 
     [SerializeField] LayerMask points;
-    GameManager manager;
 
     Rigidbody2D playerRb;
 
     private void Start()
     {
-        manager = FindFirstObjectByType<GameManager>();
         playerRb = GetComponent<Rigidbody2D>();
-
         springJoint = GetComponent<SpringJoint2D>();
         lineRenderer = GetComponent<LineRenderer>();
 
@@ -33,7 +30,7 @@ public class GraplingHook : MonoBehaviour
     private void Update()
     {
         //Stop if Game Not Running
-        if (manager.dead || !manager.gameStarted)
+        if (GameManager.instance.dead || !GameManager.instance.gameStarted)
         {
             StopGrapple();
             closestPoint = null;
@@ -67,7 +64,7 @@ public class GraplingHook : MonoBehaviour
     {
         //Play sound
         if (!isGrappling)
-            FindFirstObjectByType<SoundManager>().PlaySound("Grapple");
+            SoundManager.instance.PlaySound("Grapple");
 
         isGrappling = true;
 

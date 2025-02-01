@@ -10,6 +10,13 @@ public class SoundManager : MonoBehaviour
     [SerializeField] GameObject source;
     public Slider soundSlider;
 
+    public static SoundManager instance;
+
+    private void Start()
+    {
+        instance = this;
+    }
+
     public void PlaySound(string soundName)
     {
         foreach (var sound in sounds)

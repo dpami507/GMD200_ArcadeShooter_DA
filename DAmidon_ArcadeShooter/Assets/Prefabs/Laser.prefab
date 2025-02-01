@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotSpeed: 5
+  rotSpeed: 10
   muzzle: {fileID: 8947088177066074845}
   scoreWorth: 50
   scoreTxt: {fileID: 2199067105606363328, guid: e8ef133dae5396a44bf408390c432228, type: 3}

@@ -32,10 +32,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text deathMsgTxt;
 
     Spawner spawner;
-    SoundManager soundManager;
+    public static GameManager instance;
 
     private void Start()
     {
+        instance = this;
         gameOver = false;
         dead = false;
         UpdateScore(0); //Set score text
@@ -44,7 +45,6 @@ public class GameManager : MonoBehaviour
         deathScreen.SetActive(false);
         H2PScreen.SetActive(false);
 
-        soundManager = FindFirstObjectByType<SoundManager>();
         spawner = FindFirstObjectByType<Spawner>();
         currentBossScore = neededBossScore;
     }
@@ -67,32 +67,32 @@ public class GameManager : MonoBehaviour
             currentBossScore += neededBossScore;
             Instantiate(bossAsset, spawner.GetSpawnPos(), Quaternion.identity);
             FindFirstObjectByType<CameraFollowScript>().Shake(1);
-            soundManager.PlaySound("Explosion");
+            SoundManager.instance.PlaySound("Explosion");
         }
     }
 
     public void StartGame()
     {
-        soundManager.PlaySound("Select");
+        SoundManager.instance.PlaySound("Select");
         startScreen.SetActive(false);
         gameStarted = true;
     }
 
     public void Restart()
     {
-        soundManager.PlaySound("Select");
+        SoundManager.instance.PlaySound("Select");
         SceneManager.LoadScene("Game");
     }
 
     public void ShowHowToPlay()
     {
-        soundManager.PlaySound("Select");
+        SoundManager.instance.PlaySound("Select");
         H2PScreen.SetActive(!H2PScreen.activeInHierarchy);
     }
 
     public void Quit()
     {
-        soundManager.PlaySound("Select");
+        SoundManager.instance.PlaySound("Select");
         Application.Quit();
     }
 

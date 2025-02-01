@@ -60,7 +60,7 @@ public class BossScript : MonoBehaviour
 
     private void Update()
     {
-        if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
+        if (health.currentHealth <= 0 || GameManager.instance.dead)
             Die();
 
         transform.rotation = Quaternion.Lerp(transform.rotation, GetRotation(target.position), lerpRotSpeed * Time.deltaTime);
@@ -118,7 +118,7 @@ public class BossScript : MonoBehaviour
             laser.lineRenderer.enabled = true;
             laser.hitParticle.Play();
 
-            laser.laserSound.volume *= FindFirstObjectByType<SoundManager>().soundSlider.value;
+            laser.laserSound.volume *= SoundManager.instance.soundSlider.value;
             laser.laserSound.Play();
             laser.active = true;
         }
@@ -176,7 +176,7 @@ public class BossScript : MonoBehaviour
         if(lastRocket > rocketCooldown && rocketCount > rocketsLaunched)
         {
             //Launch
-            FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
+            SoundManager.instance.PlaySound("Shoot");
             lastRocket = 0;
             GameObject rocket_ = Instantiate(rocket, launchPoint.position, Quaternion.identity);
             rocket_.GetComponent<RocketScript>().launcher = this.gameObject;
@@ -204,8 +204,8 @@ public class BossScript : MonoBehaviour
     public void Die()
     {
         //Make sure isnt dead then add points
-        if (!FindFirstObjectByType<GameManager>().dead)
-            FindFirstObjectByType<GameManager>().UpdateScore(scoreWorth);
+        if (!GameManager.instance.dead)
+            GameManager.instance.UpdateScore(scoreWorth);
 
         health.Die("Explosion");
     }

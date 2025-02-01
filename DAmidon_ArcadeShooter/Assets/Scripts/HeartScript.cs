@@ -51,7 +51,7 @@ public class HeartScript : MonoBehaviour
             {
                 health.currentHealth += 20;
 
-                FindFirstObjectByType<SoundManager>().PlaySound("Health");
+                SoundManager.instance.PlaySound("Health");
 
                 ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
                 explosion_.transform.localScale = transform.localScale;

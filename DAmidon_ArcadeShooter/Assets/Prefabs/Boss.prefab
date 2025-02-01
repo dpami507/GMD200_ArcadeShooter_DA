@@ -557,7 +557,7 @@ MonoBehaviour:
     dir: -1
   rocket: {fileID: 7129659918662563033, guid: 6316371a5cf8e04419f2e1fb8b96119a, type: 3}
   launchPoint: {fileID: 172542951387884368}
-  rocketCount: 5
+  rocketCount: 15
   laserTime: 5
   rocketTime: 5
   cooldown: 3

@@ -26,7 +26,6 @@ public class Environment : MonoBehaviour
     [SerializeField] int width;
 
     //Other
-    GameManager manager;
     bool isStarted;
 
     private void Start()
@@ -34,7 +33,6 @@ public class Environment : MonoBehaviour
         isStarted = false;
         lavaStartPos = lava.position;
         player = FindFirstObjectByType<PlayerManager>().transform;
-        manager = FindFirstObjectByType<GameManager>();
         endPos = platform.position;
         SpawnPoints();
     }
@@ -42,7 +40,7 @@ public class Environment : MonoBehaviour
     private void Update()
     {
         //Start
-        if(!isStarted && manager.gameStarted)
+        if(!isStarted && GameManager.instance.gameStarted)
         {
             isStarted = true;
             StartCoroutine(LowerPlatform());
@@ -52,7 +50,7 @@ public class Environment : MonoBehaviour
         lava.position = new Vector2(lavaStartPos.x + player.position.x, lavaStartPos.y);
 
         //Lower Platform
-        if(manager.gameStarted)
+        if(GameManager.instance.gameStarted)
             platform.position = Vector2.Lerp(platform.position, endPos, lowerSpeed * Time.deltaTime);
     }
 

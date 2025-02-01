@@ -28,12 +28,10 @@ public class PlayerManager : MonoBehaviour
     //Other
     [Header("Other")]
     Health health;
-    GameManager manager;
     [SerializeField] Transform sprite;
 
     private void Start()
     {
-        manager = FindFirstObjectByType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         body.SetActive(true);
         health = GetComponent<Health>();
@@ -41,7 +39,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(manager.dead || !manager.gameStarted) { return; }
+        if(GameManager.instance.dead || !GameManager.instance.gameStarted) { return; }
 
         FaceTarget(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
@@ -53,7 +51,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(manager.dead || !manager.gameStarted) { return; }
+        if(GameManager.instance.dead || !GameManager.instance.gameStarted) { return; }
         Move();
     }
 
@@ -108,7 +106,7 @@ public class PlayerManager : MonoBehaviour
         {
             jumpCooldown = 0;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            FindFirstObjectByType<SoundManager>().PlaySound("Jump");
+            SoundManager.instance.PlaySound("Jump");
         }
     }
 
@@ -124,39 +122,6 @@ public class PlayerManager : MonoBehaviour
         handPivot.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
-    //Used for no mouse players
-    Vector2 GetClosestTarget()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, searchRadius, enemyMask);
-
-        if (colliders.Length <= 0)
-        {
-            return rb.velocity;
-        }
-
-        GameObject closestPos = null;
-
-        foreach (Collider2D collider in colliders)
-        {
-            if (closestPos == null)
-            {
-                closestPos = collider.gameObject;
-            }
-            else
-            {
-                float pointDist = Vector2.Distance(collider.transform.position, transform.position);
-                float currentDist = Vector2.Distance(closestPos.transform.position, transform.position);
-
-                if (pointDist < currentDist)
-                {
-                    closestPos = collider.gameObject;
-                }
-            }
-        }
-
-        return closestPos.transform.position;
-    }
-
     //Check if grounded
     bool IsGrounded()
     {
@@ -165,8 +130,8 @@ public class PlayerManager : MonoBehaviour
 
     void Die()
     {
-        manager.dead = true;
-        FindFirstObjectByType<SoundManager>().PlaySound("PlayerDeath");
+        GameManager.instance.dead = true;
+        SoundManager.instance.PlaySound("PlayerDeath");
 
         ParticleSystem explosion_ = Instantiate(explosion, transform.position, transform.rotation);
         explosion_.transform.localScale = transform.localScale;

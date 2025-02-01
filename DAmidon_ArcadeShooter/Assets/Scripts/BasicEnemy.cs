@@ -49,7 +49,7 @@ public class BasicEnemy : EnemyBaseScript
             Fire();
         }
 
-        if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
+        if (health.currentHealth <= 0 || GameManager.instance.dead)
         {
             Die();
         }
@@ -57,7 +57,7 @@ public class BasicEnemy : EnemyBaseScript
 
     void Fire()
     {
-        FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
+        SoundManager.instance.PlaySound("Shoot");
         GameObject bullet_ = Instantiate(bullet, muzzle.position, muzzle.rotation);
         bullet_.GetComponent<BulletScript>().damage = damage;
         bullet_.GetComponent<SpriteRenderer>().color = color;

@@ -36,7 +36,7 @@ public class LaserEnemy : EnemyBaseScript
         laserLOS.SetPosition(0, muzzle.position);
         laserLOS.SetPosition(1, muzzle.position + muzzle.right * laserDist);
 
-        if (health.currentHealth <= 0 || FindFirstObjectByType<GameManager>().dead)
+        if (health.currentHealth <= 0 || GameManager.instance.dead)
             Die();
 
         lastFired += Time.deltaTime;
@@ -72,7 +72,7 @@ public class LaserEnemy : EnemyBaseScript
 
     IEnumerator StartLaser()
     {
-        laserSound.volume *= FindFirstObjectByType<SoundManager>().soundSlider.value;
+        laserSound.volume *= SoundManager.instance.soundSlider.value;
         laserSound.Play();
         laserRender.enabled = true;
         hitParticle.Play();

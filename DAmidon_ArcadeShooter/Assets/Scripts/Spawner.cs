@@ -17,23 +17,20 @@ public class Spawner : MonoBehaviour
     [SerializeField] float waveTimer;
     float lastSpawned;
 
-    GameManager manager;
-
     private void Start()
     {
         CalculateTotalWeight(); //Calculate total weight of all objects
-        manager = FindFirstObjectByType<GameManager>();
     }
 
     private void Update()
     {
-        if(!manager.gameStarted) { return; }
+        if(!GameManager.instance.gameStarted) { return; }
 
         spawned = FindObjectsOfType<EnemyBaseScript>().Length;
 
         //Spawn logic
         lastSpawned += Time.deltaTime;
-        if(lastSpawned >= waveTimer && !manager.dead)
+        if(lastSpawned >= waveTimer && !GameManager.instance.dead)
         {
             lastSpawned = 0;
             SpawnWave();

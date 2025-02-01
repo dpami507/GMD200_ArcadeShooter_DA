@@ -17,7 +17,7 @@ public class GunScript : MonoBehaviour
     {
         //Shooting Logic
         lastShot += Time.deltaTime;
-        if(Input.GetButton("Fire1") && lastShot > (1 / shotsPerSecond) && FindFirstObjectByType<GameManager>().gameStarted)
+        if(Input.GetButton("Fire1") && lastShot > (1 / shotsPerSecond) && GameManager.instance.gameStarted)
         {
             Fire();
             lastShot = 0;
@@ -27,7 +27,7 @@ public class GunScript : MonoBehaviour
     //Shoot
     void Fire()
     {
-        FindFirstObjectByType<SoundManager>().PlaySound("Shoot");
+        SoundManager.instance.PlaySound("Shoot");
         GameObject bullet_ = Instantiate(bullet, muzzle.position, muzzle.rotation);
         bullet_.transform.localScale = new Vector3(bulletSize, bulletSize, bulletSize);
         bullet_.GetComponent<Rigidbody2D>().velocity = bullet_.transform.up * bulletSpeed;

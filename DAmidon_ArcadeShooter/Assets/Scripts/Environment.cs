@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Deals with Environmental Objects, like starting playform falling, keeping the lava under the player, and spawning grapple points and other objects
@@ -10,12 +9,12 @@ public class Environment : MonoBehaviour
     [SerializeField] int platformHeight;
     [SerializeField] float lowerSpeed;
     [SerializeField] Transform platform;
+    Vector3 endPos;
 
     [Header("Lava")]
     [SerializeField] Transform lava;
     Transform player;
     Vector2 lavaStartPos;
-    Vector3 endPos;
 
     [Header("Grapple Points")]
     [SerializeField] GameObject platformSpawn;

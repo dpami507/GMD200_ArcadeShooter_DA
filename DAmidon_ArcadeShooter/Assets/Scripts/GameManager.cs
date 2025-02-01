@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -10,6 +8,13 @@ public class GameManager : MonoBehaviour
     [Header("Score")]
     [SerializeField] TMP_Text scoreTxt;
     [SerializeField] int score;
+
+    [Header("Multiplier")]
+    [SerializeField] TMP_Text scoreMultiplyerTxt;
+    [SerializeField] float multiplierTxtLerp;
+    [SerializeField] float scoreMultiplier;
+    [SerializeField] float multiplierTime;
+    float lastMultiplierTime;
 
     [Header("Boss")]
     [SerializeField] GameObject bossAsset;
@@ -51,6 +56,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Turn on and off multiplier after a set time
+        lastMultiplierTime += Time.deltaTime;
+        if(lastMultiplierTime > multiplierTime)
+            scoreMultiplier = 1;
+
+        if (scoreMultiplier > 1)
+            scoreMultiplyerTxt.gameObject.SetActive(true);
+        else scoreMultiplyerTxt.gameObject.SetActive(false);
+
+        scoreMultiplyerTxt.transform.localScale = Vector3.Lerp(scoreMultiplyerTxt.transform.localScale, Vector3.one, multiplierTxtLerp * Time.deltaTime);
+
         //If player is dead set gameOver and do the stuff
         if (dead && !gameOver)
         {
@@ -96,10 +112,35 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void UpdateScore(int value)
+    public float UpdateScore(int value)
     {
         //Add value then update text
-        score += value;
+        int addedScore = Mathf.RoundToInt(value * scoreMultiplier);
+        score += addedScore;
         scoreTxt.text = "SCORE: " + score.ToString();
+
+        lastMultiplierTime = 0;
+
+        if (value > 0 && scoreMultiplier < 3)
+        {
+            UpdateMultiplier();
+        }
+
+        scoreMultiplyerTxt.text = "x" + scoreMultiplier.ToString();
+        return addedScore;
+    }
+
+    void UpdateMultiplier()
+    {
+        scoreMultiplier += .1f;
+        scoreMultiplier = RoundToTenth(scoreMultiplier);
+
+        scoreMultiplyerTxt.transform.localScale = scoreMultiplyerTxt.transform.localScale * 1.5f;
+    }
+
+    float RoundToTenth(float value)
+    {
+        value = Mathf.Round(value * 10);
+        return value / 10;
     }
 }

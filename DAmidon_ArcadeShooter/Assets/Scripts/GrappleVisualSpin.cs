@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Makes grappling cooler... i think i dunno im running out of ideas
 public class GrappleVisualSpin : MonoBehaviour
 {
     [Header("Outer Ring")]

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Camera follow script that zooms out based on speed, smoothly follows the player, and trails ahead when fast

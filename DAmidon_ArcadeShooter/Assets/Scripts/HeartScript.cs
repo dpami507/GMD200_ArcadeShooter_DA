@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Heart Pickup, adds health to player when collected and moves towards player when in range

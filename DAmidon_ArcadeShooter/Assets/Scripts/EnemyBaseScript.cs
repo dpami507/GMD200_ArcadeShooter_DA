@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Base script for Enemies, includes common variables and functions for basic AI and other stuff
@@ -46,9 +44,9 @@ public class EnemyBaseScript : MonoBehaviour
         //Make sure isnt dead then add points
         if (!GameManager.instance.dead)
         {
-            GameManager.instance.UpdateScore(scoreWorth);
+            float addedScore = GameManager.instance.UpdateScore(scoreWorth);
             GameObject scoreTxt_ = Instantiate(scoreTxt, transform.position, Quaternion.identity);
-            scoreTxt_.GetComponentInChildren<TMPro.TMP_Text>().text = scoreWorth.ToString();
+            scoreTxt_.GetComponentInChildren<TMPro.TMP_Text>().text = addedScore.ToString();
             Destroy(scoreTxt_, 1f);
         }
 

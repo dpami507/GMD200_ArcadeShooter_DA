@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //Script for Boss that is spawned every 2500 points. This boss can fire lasers and shoot rockets at the player
